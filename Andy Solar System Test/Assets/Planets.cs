@@ -303,9 +303,10 @@ public class Planets : MonoBehaviour {
 	//------------------------------------------------------------------------------------//
 
 	void Start () {
-
+		//radius (km), name, type, spectral classification, luminosity
 		string[] sol = new string[5] { "695500", "Our Sun", "sol", "G2V" , "1.0"};
 
+		//orbit radius (km), radius (km), orbit period (yr), texture, name
 		string[,] solPlanets = new string[8, 5] {
 			{   "57910000",  "2440",    "0.24", "mercury", "mercury" },
 			{  "108200000",  "6052",    "0.62", "venus",   "venus" },
