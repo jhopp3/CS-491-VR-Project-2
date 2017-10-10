@@ -23,7 +23,7 @@ public class Planets : MonoBehaviour {
 	float panelXScale = 2.0F;
 	float orbitXScale = 2.0F;
 
-	private string JSONFile = "data.json";
+	private string JSONFile = "MPS585.json";
 
 
 	//------------------------------------------------------------------------------------//
@@ -317,9 +317,9 @@ public class Planets : MonoBehaviour {
 
 			Debug.Log("File.Exists");
 			// Read the json from the file into a string
-			string dataAsJson = File.ReadAllText(filePath); 
-			// Pass the json to JsonUtility, and tell it to create a GameData object from it
-//			GameData loadedData = JsonUtility.FromJson<GameData>(dataAsJson);
+			string dataAsJson = File.ReadAllText(filePath);
+			// Pass the json to JsonUtility, and tell it to create a PlanetData object from it
+			PlanetData loadedData = JsonUtility.FromJson<PlanetData>(dataAsJson);
 
 			// Retrieve the allRoundData property of loadedData
 //			allRoundData = loadedData.allRoundData;
@@ -333,6 +333,7 @@ public class Planets : MonoBehaviour {
 	//------------------------------------------------------------------------------------//
 
 	void Start () {
+		LoadPlanetData ();
 		//radius (km), name, type, spectral classification, luminosity
 
 		string[] sol = new string[5] { "695500", "Our Sun", "sol", "G2V" , "1.0"};
