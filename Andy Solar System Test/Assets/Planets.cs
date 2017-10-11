@@ -23,7 +23,8 @@ public class Planets : MonoBehaviour {
 	float panelXScale = 2.0F;
 	float orbitXScale = 2.0F;
 
-	private string JSONFile = "MPS5.json";
+	private string JSONFile = "MPS5.json"; // 3 planets from 585 Multi Planet Systems
+//	private string JSONFile = "MPS585.json"; // 585 Multi Planet Systems
 
 
 	//------------------------------------------------------------------------------------//
@@ -306,52 +307,28 @@ public class Planets : MonoBehaviour {
 	//------------------------------------------------------------------------------------//
 	
 	string fixJson(string value)
-{
-    value = "{\"Items\":" + value + "}";
-    return value;
-}
+	{
+	    value = "{\"Items\":" + value + "}";
+	    return value;
+	}
 
 	private void LoadPlanetData()
 	{
-		Debug.Log("LoadPlanetData");
 		// Path.Combine combines strings into a file path
 		// Application.StreamingAssets points to Assets/StreamingAssets in the Editor, and the StreamingAssets folder in a build
 		string filePath = Path.Combine(Application.streamingAssetsPath, JSONFile);
 
 		if(File.Exists(filePath))
 		{
-
-			Debug.Log("File.Exists");
-			// Read the json from the file into a string
 			string dataAsJson = fixJson(File.ReadAllText(filePath));
-//			string dataAsJson = File.ReadAllText(filePath);
-
-			Debug.Log("All Data:");
-			Debug.Log(dataAsJson);
 
 			PlanetData[] planets = JsonHelper.FromJson<PlanetData>(dataAsJson);
-			Debug.Log("planets.Length:");
-			Debug.Log(planets.Length);
-			Debug.Log("planets[0].pl_hostname:");
-			Debug.Log(planets[0].pl_hostname);
-			Debug.Log("planets[1]:");
-			Debug.Log(planets[1].ToString());
-//			Debug.Log(planets[2]);
-			
-			// Pass the json to JsonUtility, and tell it to create a PlanetData object from it
-//			PlanetData loadedData = JsonUtility.FromJson<PlanetData>(dataAsJson);
 
-
-//			Debug.Log("loadedData.");
-//			Debug.Log(loadedData.pl_hostname);
-//			Debug.Log("Loaded.");
-
-			// Retrieve the allRoundData property of loadedData
-//			allRoundData = loadedData.allRoundData;
+			Debug.Log("Planet Data loaded.");
 		}
 		else
 		{
-			Debug.LogError("Cannot load game data!");
+			Debug.LogError("Cannot load planet data!");
 		}
 	}
 
