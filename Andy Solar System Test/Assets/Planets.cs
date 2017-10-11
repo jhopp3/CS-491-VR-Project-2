@@ -23,7 +23,7 @@ public class Planets : MonoBehaviour {
 	float panelXScale = 2.0F;
 	float orbitXScale = 2.0F;
 
-	private string JSONFile = "MPS585.json";
+	private string JSONFile = "MPS5.json";
 
 
 	//------------------------------------------------------------------------------------//
@@ -304,6 +304,12 @@ public class Planets : MonoBehaviour {
 	}
 
 	//------------------------------------------------------------------------------------//
+	
+	string fixJson(string value)
+{
+    value = "{\"Items\":" + value + "}";
+    return value;
+}
 
 	private void LoadPlanetData()
 	{
@@ -317,9 +323,28 @@ public class Planets : MonoBehaviour {
 
 			Debug.Log("File.Exists");
 			// Read the json from the file into a string
-			string dataAsJson = File.ReadAllText(filePath);
+			string dataAsJson = fixJson(File.ReadAllText(filePath));
+//			string dataAsJson = File.ReadAllText(filePath);
+
+			Debug.Log("All Data:");
+			Debug.Log(dataAsJson);
+
+			PlanetData[] planets = JsonHelper.FromJson<PlanetData>(dataAsJson);
+			Debug.Log("planets.Length:");
+			Debug.Log(planets.Length);
+			Debug.Log("planets[0].pl_hostname:");
+			Debug.Log(planets[0].pl_hostname);
+			Debug.Log("planets[1]:");
+			Debug.Log(planets[1].ToString());
+//			Debug.Log(planets[2]);
+			
 			// Pass the json to JsonUtility, and tell it to create a PlanetData object from it
-			PlanetData loadedData = JsonUtility.FromJson<PlanetData>(dataAsJson);
+//			PlanetData loadedData = JsonUtility.FromJson<PlanetData>(dataAsJson);
+
+
+//			Debug.Log("loadedData.");
+//			Debug.Log(loadedData.pl_hostname);
+//			Debug.Log("Loaded.");
 
 			// Retrieve the allRoundData property of loadedData
 //			allRoundData = loadedData.allRoundData;
