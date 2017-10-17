@@ -23,8 +23,8 @@ public class Planets : MonoBehaviour {
 	float panelXScale = 2.0F;
 	float orbitXScale = 2.0F;
 
-	private string JSONFile = "MPS5.json"; // 3 planets from 585 Multi Planet Systems
-//	private string JSONFile = "MPS585.json"; // 585 Multi Planet Systems
+//	private string JSONFile = "MPS5.json"; // 3 planets from 585 Multi Planet Systems
+	private string JSONFile = "MPS585.json"; // 585 Multi Planet Systems
 
 
 	//------------------------------------------------------------------------------------//
@@ -305,6 +305,17 @@ public class Planets : MonoBehaviour {
 	}
 
 	//------------------------------------------------------------------------------------//
+
+	private void setPlanetObjects(PlanetData[] planets) {
+		int count = 0;
+		foreach (PlanetData planet in planets)
+		{
+			count++;
+//			Debug.Log(count.ToString() + " " + planet.pl_hostname);
+		}
+	}
+
+	//------------------------------------------------------------------------------------//
 	
 	string fixJson(string value)
 	{
@@ -323,6 +334,7 @@ public class Planets : MonoBehaviour {
 			string dataAsJson = fixJson(File.ReadAllText(filePath));
 
 			PlanetData[] planets = JsonHelper.FromJson<PlanetData>(dataAsJson);
+			setPlanetObjects (planets);
 
 			Debug.Log("Planet Data loaded.");
 		}
