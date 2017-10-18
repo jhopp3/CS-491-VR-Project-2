@@ -30,5 +30,10 @@ public class Universe {
 
 		}
 		starSystem.addPlanetData (pd);
+
+		if ((pd.pl_pnum > 5) && (starSystem.planets.Count == 5)) {
+			Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
+			Debug.Log(starSystem.firstPlanet());
+		}
 	}
 }

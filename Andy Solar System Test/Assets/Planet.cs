@@ -6,7 +6,7 @@ using System;
 public class Planet {
 	public double radiusOfOrbit;
 	public double radiusOfPlanet; // Jupiter radii
-	public float? mass; // Jupiter Mass
+	public double mass; // Jupiter Mass
 	public string name;
 	public string discovered;
 	public Star star;
@@ -17,7 +17,7 @@ public class Planet {
 	public Planet (PlanetData pd, Star s) {
 		radiusOfOrbit = pd.pl_orbsmax;
 		radiusOfPlanet = pd.pl_radj;
-		mass = pd.pl_massj;
+		mass = pd.pl_bmassj;
 		name = pd.pl_name;
 		discovered = pd.pl_discmethod;
 		star = s;

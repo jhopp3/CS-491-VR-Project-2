@@ -19,4 +19,9 @@ public class StarSystem {
 	{
 		return star.ToString();
 	}
+
+	public string firstPlanet()
+	{
+		return planets[0].ToString();
+	}		
 }
