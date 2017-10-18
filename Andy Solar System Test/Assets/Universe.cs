@@ -26,10 +26,14 @@ public class Universe {
 		starSystem.addPlanetData (pd);
 
 		// Debug Planet prints
-//		if ((pd.pl_pnum > 5) && (starSystem.planets.Count == 5)) {
-//			Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
-//			Debug.Log(starSystem.firstPlanet());
-//		}
+		if ((pd.pl_pnum > 5) && (starSystem.planets.Count == 5)) {
+			Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
+			Debug.Log(starSystem.printFirstPlanet());
+		}
 
+		if (pd.pl_hostname == "tau Cet") {
+			Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
+			Debug.Log(starSystem.printFirstPlanet());
+		}
 	}
 }

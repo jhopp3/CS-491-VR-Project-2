@@ -20,8 +20,12 @@ public class StarSystem {
 		return star.ToString();
 	}
 
-	public string firstPlanet()
+	public string printFirstPlanet()
 	{
-		return planets[0].ToString();
+		if (planets.Count > 0) {
+			return planets [0].ToString ();
+		}
+
+		return "";
 	}		
 }
