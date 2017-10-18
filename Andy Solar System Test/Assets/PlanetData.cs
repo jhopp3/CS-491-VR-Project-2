@@ -40,7 +40,7 @@ public class PlanetData  {
     public double? pl_bmassjerr2;
     public int pl_bmassjlim;
     public string pl_bmassprov;
-    public string pl_radj;
+	public double pl_radj;
     public string pl_radjerr1;
     public string pl_radjerr2;
     public string pl_radjlim;
@@ -114,7 +114,7 @@ public class PlanetData  {
     public string pl_insolerr1;
     public string pl_insolerr2;
     public string pl_insollim;
-    public string pl_massj;
+    public float? pl_massj;
     public string pl_massjerr1;
     public string pl_massjerr2;
     public string pl_massjlim;

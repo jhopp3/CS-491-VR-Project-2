@@ -317,6 +317,7 @@ public class Planets : MonoBehaviour {
 			THE_UNIVERSE.addPlanetData(planet);
 		}
 
+		Debug.Log("Lum Count " + THE_UNIVERSE.lumValueCount);
 		Debug.Log("Loaded: " + THE_UNIVERSE.StarSystems.Count.ToString() + " Star Systems.");
 		Debug.Log("Loaded: " + count.ToString() + " Planets.");
 	}

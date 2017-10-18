@@ -11,7 +11,12 @@ public class StarSystem {
 	}
 
 	public void addPlanetData (PlanetData pd) {
-		Planet newPlanet = new Planet (pd);
+		Planet newPlanet = new Planet (pd, star);
 		planets.Add (newPlanet);
+	}
+
+	public override string ToString()
+	{
+		return star.ToString();
 	}
 }
