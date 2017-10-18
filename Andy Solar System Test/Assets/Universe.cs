@@ -5,7 +5,6 @@ using UnityEngine;
 public class Universe {
 	public Dictionary<string, StarSystem> StarSystems = new Dictionary<string, StarSystem>();
 	int count = 0;
-	public int lumValueCount = 0;
 	public void addPlanetData(PlanetData pd) {
 		string starName = pd.pl_hostname;
 
@@ -17,23 +16,20 @@ public class Universe {
 			starSystem = new StarSystem (pd);
 			StarSystems.Add(starName, starSystem);
 
-			if (pd.pl_pnum > 5) {
-				count++;
-				Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
-				Debug.Log(starSystem.ToString());
-			}
-
-			if (pd.st_lum != null) {
-				lumValueCount++;
-			}
-
-
+			// Debug Star prints
+//			if (pd.pl_pnum > 5) {
+//				count++;
+//				Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
+//				Debug.Log(starSystem.ToString());
+//			}
 		}
 		starSystem.addPlanetData (pd);
 
-		if ((pd.pl_pnum > 5) && (starSystem.planets.Count == 5)) {
-			Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
-			Debug.Log(starSystem.firstPlanet());
-		}
+		// Debug Planet prints
+//		if ((pd.pl_pnum > 5) && (starSystem.planets.Count == 5)) {
+//			Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
+//			Debug.Log(starSystem.firstPlanet());
+//		}
+
 	}
 }

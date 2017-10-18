@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 public class Star {
-	public double? luminosity;
+	public double luminosity;
 	public string name;
 	public double distanceFromUs; // in parsecs
 	public string type; // Classification of the star based on their spectral characteristics following the Morgan-Keenan system.
