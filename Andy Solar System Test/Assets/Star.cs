@@ -9,5 +9,9 @@ public class Star {
 	public string type;
 	public float radius;
 	public string spectralClassification;
-	
+	public int numberOfPlanets;
+
+	public Star (PlanetData pd) {
+		
+	}	
 }

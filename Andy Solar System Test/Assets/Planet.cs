@@ -13,4 +13,6 @@ public class Planet {
 
 	public string texture;
 
+	public Planet (PlanetData pd) {
+	}
 }

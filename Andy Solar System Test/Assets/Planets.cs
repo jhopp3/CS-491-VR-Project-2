@@ -26,6 +26,8 @@ public class Planets : MonoBehaviour {
 //	private string JSONFile = "MPS5.json"; // 3 planets from 585 Multi Planet Systems
 	private string JSONFile = "MPS585.json"; // 585 Multi Planet Systems
 
+	public static Universe THE_UNIVERSE = new Universe();
+
 
 	//------------------------------------------------------------------------------------//
 
@@ -312,7 +314,11 @@ public class Planets : MonoBehaviour {
 		{
 			count++;
 //			Debug.Log(count.ToString() + " " + planet.pl_hostname);
+			THE_UNIVERSE.addPlanetData(planet);
 		}
+
+		Debug.Log("Loaded: " + THE_UNIVERSE.StarSystems.Count.ToString() + " Star Systems.");
+		Debug.Log("Loaded: " + count.ToString() + " Planets.");
 	}
 
 	//------------------------------------------------------------------------------------//
