@@ -10,7 +10,7 @@ using System.IO;
 
 
 public class Planets : MonoBehaviour {
-
+	public int Type_; 
 	float panelHeight = 0.1F;
 	float panelWidth = 30.0F;
 	float panelDepth = 0.1F;
@@ -23,8 +23,10 @@ public class Planets : MonoBehaviour {
 	float panelXScale = 2.0F;
 	float orbitXScale = 2.0F;
 
-	private string JSONFile = "MPS5.json"; // 3 planets from 585 Multi Planet Systems
-//	private string JSONFile = "MPS585.json"; // 585 Multi Planet Systems
+	//	private string JSONFile = "MPS5.json"; // 3 planets from 585 Multi Planet Systems
+	private string JSONFile = "MPS585.json"; // 585 Multi Planet Systems
+
+	public static Universe THE_UNIVERSE = new Universe();
 
 
 	//------------------------------------------------------------------------------------//
@@ -34,7 +36,7 @@ public class Planets : MonoBehaviour {
 		GameObject newOrbit;
 		GameObject orbits;
 
-	
+
 		newOrbit = new GameObject (orbitName);
 		newOrbit.AddComponent<Circle> ();
 		newOrbit.AddComponent<LineRenderer> ();
@@ -51,9 +53,9 @@ public class Planets : MonoBehaviour {
 
 		orbits = myOrbits;
 		newOrbit.transform.parent = orbits.transform;
-	
 
-		}
+
+	}
 
 	//------------------------------------------------------------------------------------//
 
@@ -104,7 +106,7 @@ public class Planets : MonoBehaviour {
 		GameObject newPlanet;
 
 		GameObject sunRelated;
-	
+
 		Material planetMaterial;
 
 		int planetCounter;
@@ -115,7 +117,7 @@ public class Planets : MonoBehaviour {
 			float planetSize = float.Parse (planets [planetCounter, 1]) * 1.0F / 10000.0F;
 			string textureName = planets [planetCounter, 3];
 			string planetName = planets [planetCounter, 4];
-		
+
 			// limit the planets to the width of the side view
 			if ((panelXScale * planetDistance) < panelWidth) {
 
@@ -253,9 +255,10 @@ public class Planets : MonoBehaviour {
 
 		sunText.transform.parent = sunRelated.transform;
 
-
-		drawOrbit ("Habitable Inner Ring", innerHab * orbitXScale, Color.green, habWidth, theseOrbits);
-		drawOrbit ("Habitable Outer Ring", outerHab * orbitXScale, Color.green, habWidth, theseOrbits);
+		if (Type_ == 1) {
+			drawOrbit ("Habitable Inner Ring", innerHab * orbitXScale, Color.green, habWidth, theseOrbits);
+			drawOrbit ("Habitable Outer Ring", outerHab * orbitXScale, Color.green, habWidth, theseOrbits);
+		}
 	}
 
 	//------------------------------------------------------------------------------------//
@@ -283,33 +286,58 @@ public class Planets : MonoBehaviour {
 		SunStuff.transform.parent = SolarCenter.transform;
 		Planets.transform.parent = SolarCenter.transform;
 
-		dealWithStar (starInfo, SunStuff, AllOrbits);
-		dealWithPlanets (planetInfo, Planets, AllOrbits);
+		if (Type_ == 2) {
+			dealWithStar (starInfo, SunStuff, AllOrbits);
+			// need to do this last
+			SolarCenter.transform.position = offset;
 
+		}
+		if (Type_ == 1) {
+			dealWithStar (starInfo, SunStuff, AllOrbits);
+			dealWithPlanets (planetInfo, Planets, AllOrbits);
+		
 		// need to do this last
 		SolarCenter.transform.position = offset;
 
-
+		}
 		// add in second 'flat' representation
-		GameObject SolarSide;
-		SolarSide = new GameObject();
-		SolarSide.name = "Side View of" + starInfo[1];
+		if (Type_ == 0) {
+			GameObject SolarSide;
+			SolarSide = new GameObject ();
+			SolarSide.name = "Side View of" + starInfo [1];
 
 
-		sideDealWithStar (starInfo, SolarSide, AllOrbits);
-		sideDealWithPlanets (planetInfo, SolarSide, AllOrbits);
+			sideDealWithStar (starInfo, SolarSide, AllOrbits);
+			sideDealWithPlanets (planetInfo, SolarSide, AllOrbits);
 
-		SolarSide.transform.position = new Vector3 (0, 8, 10.0F);
-		SolarSide.transform.position += (offset * 0.15F);
+			SolarSide.transform.position = new Vector3 (0, 8, 10.0F);
+			SolarSide.transform.position += (offset * 0.15F);
+		}
 
 	}
 
 	//------------------------------------------------------------------------------------//
-	
+
+	private void setPlanetObjects(PlanetData[] planets) {
+		int count = 0;
+		foreach (PlanetData planet in planets)
+		{
+			count++;
+			//			Debug.Log(count.ToString() + " " + planet.pl_hostname);
+			//			Debug.Log(count.ToString() + " " + JsonUtility.ToJson(planet));
+			THE_UNIVERSE.addPlanetData(planet);
+		}
+
+		Debug.Log("Loaded: " + THE_UNIVERSE.StarSystems.Count.ToString() + " Star Systems.");
+		Debug.Log("Loaded: " + count.ToString() + " Planets.");
+	}
+
+	//------------------------------------------------------------------------------------//
+
 	string fixJson(string value)
 	{
-	    value = "{\"Items\":" + value + "}";
-	    return value;
+		value = "{\"Items\":" + value + "}";
+		return value;
 	}
 
 	private void LoadPlanetData()
@@ -323,6 +351,7 @@ public class Planets : MonoBehaviour {
 			string dataAsJson = fixJson(File.ReadAllText(filePath));
 
 			PlanetData[] planets = JsonHelper.FromJson<PlanetData>(dataAsJson);
+			setPlanetObjects (planets);
 
 			Debug.Log("Planet Data loaded.");
 		}
@@ -371,14 +400,14 @@ public class Planets : MonoBehaviour {
 			{ "6133513", "30554",   "0.014", "jupiter",   "b" },
 			{"10920645", "20147",   "0.18", "neptune",  "c" }
 		};
-			
+
 		GameObject allCenter = new GameObject();
 		allCenter.name = "all systems";
 
 
 		var systemOffset = new Vector3 (0, 0, 0);
 		var oneOffset = new Vector3 (0, -30, 0);
-	
+
 		dealWithSystem (sol, solPlanets, systemOffset, allCenter);
 
 		systemOffset += oneOffset;
@@ -389,13 +418,13 @@ public class Planets : MonoBehaviour {
 
 		dealWithSystem (Gliese581, Gliese581Planets, systemOffset, allCenter);
 
-			
+
 		allCenter.transform.localScale = new Vector3 (0.1F, 0.1F, 0.1F);
 	}
 
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 }
