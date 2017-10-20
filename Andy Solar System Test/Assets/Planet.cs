@@ -16,6 +16,8 @@ public class Planet {
 
 	public string texture;
 
+	public bool errorMassRadius;  // Does this have a non-zero mass or radius?
+
 	private const double AU_TO_KM = 149597870.7;
 	private const double JUPITER_RADIUS_TO_KM = 69911;
 	private const double YEAR_TO_DAYS = 365.2422;
@@ -32,12 +34,46 @@ public class Planet {
 		timeToOrbit = pd.pl_orbper / YEAR_TO_DAYS;
 //		timeToOrbit = pd.pl_orbper;
 
+		errorMassRadius = setMassRadius();
 		setTexture ();
+	}
+
+	private bool setMassRadius() {
+		// If either the Mass or Radius is null from the import, guess it's value based on the other.
+
+		if ((mass <= 0) && (radiusOfPlanet <= 0)) {
+			// Debug.LogError("Mass and Radius of 0.");
+			return true;
+		} else {
+			if (mass <= 0) {
+				// Set mass based on radius
+				// Use formula JupiterMass = 0.00672 * EXP(0.0000706*(Radius))
+				mass = 0.00672 * Math.Exp(0.0000706 * (radiusOfPlanet));
+			} else if (radiusOfPlanet <= 0) {
+				// Set radius based on mass				
+				// Use formula Radius = 72483+(15496 * ln (JupiterMass))
+				radiusOfPlanet = 72483+(15496 * Math.Log(mass));
+			}
+		}
+		return false;
 	}
 
 	private void setTexture() {
 		// Set the texture based on the radius/mass
-		texture = "";
+
+		if (mass <= 0) {
+			// Debug.LogError("Can't set the texture.");
+		} else {
+			if (mass < 0.05) {
+				texture = "uranus";
+			} else if (mass < 0.1) {
+				texture = "neptune";
+			} else if (mass < 0.65) {
+				texture = "saturn";
+			} else {
+				texture = "jupiter";
+			}
+		}
 	}
 
 	public override string ToString()
