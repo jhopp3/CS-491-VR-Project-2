@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 
 public class Planets : MonoBehaviour {
@@ -21,6 +22,9 @@ public class Planets : MonoBehaviour {
 
 	float panelXScale = 2.0F;
 	float orbitXScale = 2.0F;
+
+	private string JSONFile = "MPS5.json"; // 3 planets from 585 Multi Planet Systems
+//	private string JSONFile = "MPS585.json"; // 585 Multi Planet Systems
 
 
 	//------------------------------------------------------------------------------------//
@@ -301,9 +305,39 @@ public class Planets : MonoBehaviour {
 	}
 
 	//------------------------------------------------------------------------------------//
+	
+	string fixJson(string value)
+	{
+	    value = "{\"Items\":" + value + "}";
+	    return value;
+	}
+
+	private void LoadPlanetData()
+	{
+		// Path.Combine combines strings into a file path
+		// Application.StreamingAssets points to Assets/StreamingAssets in the Editor, and the StreamingAssets folder in a build
+		string filePath = Path.Combine(Application.streamingAssetsPath, JSONFile);
+
+		if(File.Exists(filePath))
+		{
+			string dataAsJson = fixJson(File.ReadAllText(filePath));
+
+			PlanetData[] planets = JsonHelper.FromJson<PlanetData>(dataAsJson);
+
+			Debug.Log("Planet Data loaded.");
+		}
+		else
+		{
+			Debug.LogError("Cannot load planet data!");
+		}
+	}
+
+	//------------------------------------------------------------------------------------//
 
 	void Start () {
+		LoadPlanetData ();
 		//radius (km), name, type, spectral classification, luminosity
+
 		string[] sol = new string[5] { "695500", "Our Sun", "sol", "G2V" , "1.0"};
 
 		//orbit radius (km), radius (km), orbit period (yr), texture, name
