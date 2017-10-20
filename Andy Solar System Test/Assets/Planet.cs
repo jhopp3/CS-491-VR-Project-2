@@ -42,6 +42,6 @@ public class Planet {
 
 	public override string ToString()
 	{
-		return String.Format("{0:e2} : {1} : {2} : {3} : {4} : {5} : {6}", radiusOfOrbit, radiusOfPlanet, mass, name, discovered, timeToOrbit, texture);
+		return String.Format("OrbRad {0:e2} : PlanRad {1} : Mass {2} : Name {3} : Disc {4} : Orbit {5} : Tex {6}", radiusOfOrbit, radiusOfPlanet, mass, name, discovered, timeToOrbit, texture);
 	}
 }

@@ -23,6 +23,6 @@ public class Star {
 
 	public override string ToString()
 	{
-		return String.Format("{0} : {1} : {2} : {3} : {4} : {5}", luminosity, name, distanceFromUs, type, radius, numberOfPlanets);
+		return String.Format("Lum {0} : Name {1} : Dist {2} : Type {3} : Radius {4} : Planets {5}", luminosity, name, distanceFromUs, type, radius, numberOfPlanets);
 	}
 }
