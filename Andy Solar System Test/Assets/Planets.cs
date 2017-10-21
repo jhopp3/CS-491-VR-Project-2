@@ -22,6 +22,7 @@ public class Planets : MonoBehaviour {
 
 	float panelXScale = 2.0F;
 	float orbitXScale = 2.0F;
+	public float planetSizeChange, orbitSizeChange, rotationSpeedChange, timePassingChange;
 
 	//	private string JSONFile = "MPS5.json"; // 3 planets from 585 Multi Planet Systems
 	private string JSONFile = "MPS585.json"; // 585 Multi Planet Systems
