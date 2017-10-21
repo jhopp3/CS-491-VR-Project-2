@@ -12,8 +12,8 @@ public class PlanetData  {
 	// public string pl_orbsmax; //Radius of orbit
 	// public string pl_bmassj; //Mass
 	// public string pl_radj; //Radius of planet
-	
-	
+
+
 	public int rowid;
     public string pl_hostname;
     public string pl_letter;
