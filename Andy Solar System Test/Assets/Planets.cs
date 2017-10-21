@@ -393,7 +393,7 @@ public class Planets : MonoBehaviour {
 	void Start () {
 		planetSizeChange = 1.0F;//To change planet size
 		orbitSizeChange = 1.0F;//To change orbit size
-		//rotationSpeedChange = 1.0F;//To change rotation speed (revolution speed variable)
+		rotationSpeedChange = 1.0F;//To change rotation speed (revolution speed variable)
 		timePassingChange = 1.0F;//To change time passing
 		revolutionSpeed = 0.2F ;
 		LoadPlanetData();
