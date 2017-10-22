@@ -15,7 +15,7 @@ public class Star {
 	public char spectralType;
 
 	public Star (PlanetData pd) {
-		luminosity = pd.st_lum;
+		luminosity = Math.Exp(pd.st_lum);
 		name = pd.pl_hostname;
 		distanceFromUs = pd.st_dist;
 		type = pd.st_spstr;
