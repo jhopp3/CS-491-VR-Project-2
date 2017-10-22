@@ -288,6 +288,9 @@ public class Planets : MonoBehaviour {
 	}
 
 	//------------------------------------------------------------------------------------//
+	void dealWithSystem(Star star, List<Planet> planets, Vector3 offset, GameObject allThings){
+		Debug.Log("dealWithSystem!!!!!!!");
+	}
 
 	void dealWithSystem(string[] starInfo, string[,] planetInfo, Vector3 offset, GameObject allThings){
 
@@ -387,6 +390,32 @@ public class Planets : MonoBehaviour {
 		}
 	}
 
+	void loadAllSystems(GameObject allCenter) {
+		var systemOffset = new Vector3(0, 0, 0);
+		var oneOffset = new Vector3(0, -30, 0);
+
+		systemOffset += oneOffset;
+
+		// dealWithSystem(TauCeti, TauCetiPlanets, systemOffset, allCenter);
+
+		// systemOffset += oneOffset;
+
+		// dealWithSystem(Gliese581, Gliese581Planets, systemOffset, allCenter);
+
+		// int count = 0;
+
+		foreach(KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems) {
+			// do something with entry.Value or entry.Key
+			StarSystem ss = entry.Value;
+			// count++;
+			// if (count%50 == 0) {
+			// 	Debug.Log(count.ToString() + " " + ss.ToString());
+			// }
+			dealWithSystem(ss.star, ss.planets, systemOffset, allCenter);
+			systemOffset += oneOffset;
+		}
+	}
+
 	//------------------------------------------------------------------------------------//
 
 	void Start () {
@@ -413,24 +442,24 @@ public class Planets : MonoBehaviour {
 		};
 
 
-		string[] TauCeti = new string[5] { "556400", "Tau Ceti", "gstar", "G8.5V", "0.52" };
+		// string[] TauCeti = new string[5] { "556400", "Tau Ceti", "gstar", "G8.5V", "0.52" };
 
-		string[,] TauCetiPlanets = new string[5, 5] {
-			{ "15707776",  "9009",   "0.04", "venus",   "b" },
-			{ "29171585", "11217",   "0.09", "venus", "c" },
-			{ "55949604", "12088",   "0.26", "mercury",  "d" },
-			{ "82578024", "13211",   "0.46", "mercury", "e" },
-			{"201957126", "16454",   "1.75", "uranus",  "f" }
-		};
+		// string[,] TauCetiPlanets = new string[5, 5] {
+		// 	{ "15707776",  "9009",   "0.04", "venus",   "b" },
+		// 	{ "29171585", "11217",   "0.09", "venus", "c" },
+		// 	{ "55949604", "12088",   "0.26", "mercury",  "d" },
+		// 	{ "82578024", "13211",   "0.46", "mercury", "e" },
+		// 	{"201957126", "16454",   "1.75", "uranus",  "f" }
+		// };
 
 
-		string[] Gliese581 = new string[5] { "201750", "Gliese 581", "mstar", "M3V", "0.013" };
+		// string[] Gliese581 = new string[5] { "201750", "Gliese 581", "mstar", "M3V", "0.013" };
 
-		string[,] Gliese581Planets = new string[3, 5] {
-			{ "4188740",  "8919",   "0.009", "venus",   "e" },
-			{ "6133513", "30554",   "0.014", "jupiter",   "b" },
-			{"10920645", "20147",   "0.18", "neptune",  "c" }
-		};
+		// string[,] Gliese581Planets = new string[3, 5] {
+		// 	{ "4188740",  "8919",   "0.009", "venus",   "e" },
+		// 	{ "6133513", "30554",   "0.014", "jupiter",   "b" },
+		// 	{"10920645", "20147",   "0.18", "neptune",  "c" }
+		// };
 
 		GameObject allCenter = new GameObject
 		{
@@ -443,13 +472,15 @@ public class Planets : MonoBehaviour {
 
 		dealWithSystem(sol, solPlanets, systemOffset, allCenter);
 
-		systemOffset += oneOffset;
+		loadAllSystems(allCenter);
 
-		dealWithSystem(TauCeti, TauCetiPlanets, systemOffset, allCenter);
+		// systemOffset += oneOffset;
 
-		systemOffset += oneOffset;
+		// dealWithSystem(TauCeti, TauCetiPlanets, systemOffset, allCenter);
 
-		dealWithSystem(Gliese581, Gliese581Planets, systemOffset, allCenter);
+		// systemOffset += oneOffset;
+
+		// dealWithSystem(Gliese581, Gliese581Planets, systemOffset, allCenter);
 
 
 		allCenter.transform.localScale = new Vector3(0.1F, 0.1F, 0.1F);
