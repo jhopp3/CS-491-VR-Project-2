@@ -34,7 +34,7 @@ public class Universe {
 		// if (pd.pl_hostname == "tau Cet") {
 		// 	Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
 		// 	Debug.Log(starSystem.ToString());
-		// 	Debug.Log(starSystem.printFirstPlanet());
+		// 	starSystem.printAllPlanets();
 		// }
 	}
 }
