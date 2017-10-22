@@ -14,12 +14,14 @@ public class Star {
 	public string texture;
 	public char spectralType;
 
+	public const int EARTH_RADIUS = 695500;
+
 	public Star (PlanetData pd) {
 		luminosity = Math.Exp(pd.st_lum);
 		name = pd.pl_hostname;
 		distanceFromUs = pd.st_dist;
 		type = pd.st_spstr;
-		radius = pd.st_rad;
+		radius = pd.st_rad * EARTH_RADIUS;
 		numberOfPlanets = pd.pl_pnum;
 
 		setTexture();
