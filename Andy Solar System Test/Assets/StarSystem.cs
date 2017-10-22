@@ -27,5 +27,16 @@ public class StarSystem {
 		}
 
 		return "";
+<<<<<<< HEAD
 	}		
 }
+=======
+	}
+	public void printAllPlanets()
+	{
+		foreach (Planet p in planets) {
+			Debug.Log(p.ToString());
+		}
+	}
+}
+>>>>>>> master
