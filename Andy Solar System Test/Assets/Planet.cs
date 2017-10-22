@@ -74,11 +74,6 @@ public class Planet {
 				} else {
 					radiusOfPlanet = (float)Math.Pow(mass/EARTH_MASS, -0.0886) * (float)22.6 * EARTH_RADIUS;
 				}
-				
-				if (radiusOfPlanet < 0) {
-					Debug.LogError("58970 + 7737 * log " + mass + "");
-					Debug.LogError(mass.ToString() + ": " + radiusOfPlanet);
-				}
 			}
 		}
 		return false;
