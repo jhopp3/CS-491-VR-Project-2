@@ -349,22 +349,6 @@ public class Planets : MonoBehaviour {
 		foreach (PlanetData planet in planets)
 		{
 			count++;
-			//			Debug.Log(count.ToString() + " " + planet.pl_hostname);
-			//			Debug.Log(count.ToString() + " " + JsonUtility.ToJson(planet));
-			THE_UNIVERSE.addPlanetData(planet);
-		}
-
-		Debug.Log("Loaded: " + THE_UNIVERSE.StarSystems.Count.ToString() + " Star Systems.");
-		Debug.Log("Loaded: " + count.ToString() + " Planets.");
-	}
-
-	//------------------------------------------------------------------------------------//
-
-	private void setPlanetObjects(PlanetData[] planets) {
-		int count = 0;
-		foreach (PlanetData planet in planets)
-		{
-			count++;
 //			Debug.Log(count.ToString() + " " + planet.pl_hostname);
 //			Debug.Log(count.ToString() + " " + JsonUtility.ToJson(planet));
 			THE_UNIVERSE.addPlanetData(planet);
