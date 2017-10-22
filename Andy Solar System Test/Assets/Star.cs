@@ -25,6 +25,20 @@ public class Star {
 		setTexture();
 	}
 
+	public Star (string[] sunArray) {
+		//radius (km), name, type, spectral classification, luminosity
+		//new string[5] { "695500", "Our Sun", "sol", "G2V", "1.0" };
+		radius = double.Parse(sunArray[0]);
+		name = sunArray[1];
+		type = sunArray[3];
+		luminosity = double.Parse(sunArray[4]);
+		distanceFromUs = 0;
+		numberOfPlanets = 8;
+		setTexture();
+
+		Debug.Log(this.ToString());
+	}
+
 	private void setTexture() {
 		if (!string.IsNullOrEmpty(type)) {
 			// Debug.LogError("Type is " + type);

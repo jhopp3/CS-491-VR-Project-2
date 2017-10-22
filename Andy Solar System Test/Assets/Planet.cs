@@ -38,6 +38,17 @@ public class Planet {
 		setTexture ();
 	}
 
+	public Planet (string[] planetArray, Star s) {
+		//orbit radius (km), radius (km), orbit period (yr), texture, name
+		// {   "57910000",  "2440",    "0.24", "mercury", "mercury" }
+		radiusOfOrbit = double.Parse(planetArray[0]);
+		radiusOfPlanet = double.Parse(planetArray[1]);
+		timeToOrbit = double.Parse(planetArray[2]);
+		texture = planetArray[3];
+		name = planetArray[4];
+		star = s;
+	}
+
 	private bool setMassRadius() {
 		// If either the Mass or Radius is null from the import, guess it's value based on the other.
 
