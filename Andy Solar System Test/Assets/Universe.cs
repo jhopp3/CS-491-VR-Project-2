@@ -30,4 +30,25 @@ public class Universe {
 		StarSystems = AllStarSystems.ToDictionary(entry => entry.Key,
                                                entry => entry.Value);
 	}
+
+	// nearest to the Earth, most planets, most planets likely to be habitable, 
+	// stars most like the sun
+	public void nearestEarth() {
+		foreach(KeyValuePair<string, StarSystem> starSystem in AllStarSystems)
+		{
+			// do something with entry.Value or entry.Key
+		}
+	}
+
+	public void mostPlanets() {
+
+	}
+
+	public void mostLikelyHabitable() {
+
+	}
+
+	public void mostLikeSun() {
+
+	}
 }
