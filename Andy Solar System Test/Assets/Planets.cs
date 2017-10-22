@@ -10,7 +10,8 @@ using System.IO;
 
 
 public class Planets : MonoBehaviour {
-	public int Type_;
+	public enum SceneTypes { TwoD, ThreeDSystems, ThreeDStars };
+	public SceneTypes sceneType;
 	float panelHeight = 0.1F;
 	float panelWidth = 30.0F;
 	float panelDepth = 0.1F;
@@ -281,7 +282,7 @@ public class Planets : MonoBehaviour {
 
 		sunText.transform.parent = sunRelated.transform;
 
-		if (Type_ == 1) {
+		if (sceneType == SceneTypes.ThreeDSystems) {
 			drawOrbit ("Habitable Inner Ring", innerHab * orbitXScale, Color.green, habWidth, theseOrbits);
 			drawOrbit ("Habitable Outer Ring", outerHab * orbitXScale, Color.green, habWidth, theseOrbits);
 		}
@@ -315,13 +316,13 @@ public class Planets : MonoBehaviour {
 		SunStuff.transform.parent = SolarCenter.transform;
 		Planets.transform.parent = SolarCenter.transform;
 
-		if (Type_ == 2) {
+		if (sceneType == SceneTypes.ThreeDStars) {
 			dealWithStar (starInfo, SunStuff, AllOrbits);
 			// need to do this last
 			SolarCenter.transform.position = offset;
 
 		}
-		if (Type_ == 1) {
+		if (sceneType == SceneTypes.ThreeDSystems) {
 			dealWithStar (starInfo, SunStuff, AllOrbits);
 			dealWithPlanets (planetInfo, Planets, AllOrbits);
 
@@ -330,7 +331,7 @@ public class Planets : MonoBehaviour {
 
 		}
 		// add in second 'flat' representation
-		if (Type_ == 0) {
+		if (sceneType == SceneTypes.TwoD) {
 			GameObject SolarSide;
 			SolarSide = new GameObject ();
 			SolarSide.name = "Side View of" + starInfo [1];
