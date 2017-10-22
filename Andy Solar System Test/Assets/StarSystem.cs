@@ -32,4 +32,10 @@ public class StarSystem {
 
 		return "";
 	}
+	public void printAllPlanets()
+	{
+		foreach (Planet p in planets) {
+			Debug.Log(p.ToString());
+		}
+	}
 }
