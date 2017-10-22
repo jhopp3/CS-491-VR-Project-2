@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class WandSelectionSystem : MonoBehaviour {
 
     LineRenderer lr;
+    public Button btn;
     public Vector3 target;
     public Vector3 root;
-    
-
     // Use this for initialization
     void Start () {
         lr = GetComponent<LineRenderer>();
@@ -22,18 +18,12 @@ public class WandSelectionSystem : MonoBehaviour {
         poss[0] = root;
         poss[1] = target;
         lr.SetPositions(poss);
-        if (Input.GetAxis("Fire1")>0.4f)
+        if (Input.GetAxis("Submit")>0.4f)
         {
-            print("click");
+            Debug.Log("Click");
+            btn.onClick.Invoke();
+            Debug.Log("Clicked");
+
         }
-        
-
-
-
-
-
-
-	}
-
-   
+ 	}
 }

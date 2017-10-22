@@ -1,6 +1,6 @@
 ﻿/// Sample Code for CS 491 Virtual And Augmented Reality Course - Fall 2017
 /// written by Andy Johnson
-///
+/// 
 /// makes use of various textures from the celestia motherlode - http://www.celestiamotherlode.net/
 
 using System.Collections;
@@ -10,11 +10,7 @@ using System.IO;
 
 
 public class Planets : MonoBehaviour {
-<<<<<<< Updated upstream
-	public int Type_;
-=======
 	public int Type_; 
->>>>>>> Stashed changes
 	float panelHeight = 0.1F;
 	float panelWidth = 30.0F;
 	float panelDepth = 0.1F;
@@ -43,11 +39,7 @@ public class Planets : MonoBehaviour {
 
 
 	/// <summary>
-<<<<<<< Updated upstream
-	///
-=======
 	/// 
->>>>>>> Stashed changes
 	/// </summary>
 	/// <param name="orbitName"></param>
 	/// <param name="orbitRadius"></param>
@@ -253,7 +245,7 @@ public class Planets : MonoBehaviour {
 
 		sunRelated = thisStar;
 
-		newSun.GetComponent<rotate> ().rotateSpeed = -0.25F;
+		newSun.GetComponent<rotate> ().rotateSpeed = -0.25F; 
 
 		sunMaterial = new Material (Shader.Find ("Unlit/Texture"));
 		newSun.GetComponent<MeshRenderer> ().material = sunMaterial;
@@ -360,25 +352,6 @@ public class Planets : MonoBehaviour {
 			count++;
 			//			Debug.Log(count.ToString() + " " + planet.pl_hostname);
 			//			Debug.Log(count.ToString() + " " + JsonUtility.ToJson(planet));
-<<<<<<< Updated upstream
-			THE_UNIVERSE.addPlanetData(planet);
-		}
-
-		Debug.Log("Loaded: " + THE_UNIVERSE.StarSystems.Count.ToString() + " Star Systems.");
-		Debug.Log("Loaded: " + count.ToString() + " Planets.");
-	}
-
-	//------------------------------------------------------------------------------------//
-
-	private void setPlanetObjects(PlanetData[] planets) {
-		int count = 0;
-		foreach (PlanetData planet in planets)
-		{
-			count++;
-//			Debug.Log(count.ToString() + " " + planet.pl_hostname);
-//			Debug.Log(count.ToString() + " " + JsonUtility.ToJson(planet));
-=======
->>>>>>> Stashed changes
 			THE_UNIVERSE.addPlanetData(planet);
 		}
 
@@ -459,24 +432,13 @@ public class Planets : MonoBehaviour {
 			{ "6133513", "30554",   "0.014", "jupiter",   "b" },
 			{"10920645", "20147",   "0.18", "neptune",  "c" }
 		};
-<<<<<<< Updated upstream
-=======
-
-		GameObject allCenter = new GameObject
-		{
-			name = "all systems"
-		};
->>>>>>> Stashed changes
 
 		GameObject allCenter = new GameObject
 		{
 			name = "all systems"
 		};
 
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 		var systemOffset = new Vector3(0, 0, 0);
 		var oneOffset = new Vector3(0, -30, 0);
 

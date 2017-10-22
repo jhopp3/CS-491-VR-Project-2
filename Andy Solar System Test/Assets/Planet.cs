@@ -35,29 +35,6 @@ public class Planet {
 		setTexture ();
 	}
 
-<<<<<<< Updated upstream
-	private bool setMassRadius() {
-		// If either the Mass or Radius is null from the import, guess it's value based on the other.
-
-		if ((mass <= 0) && (radiusOfPlanet <= 0)) {
-			// Debug.LogError("Mass and Radius of 0.");
-			return true;
-		} else {
-			if (mass <= 0) {
-				// Set mass based on radius
-				// Use formula JupiterMass = 0.00672 * EXP(0.0000706*(Radius))
-				mass = 0.00672 * Math.Exp(0.0000706 * (radiusOfPlanet));
-			} else if (radiusOfPlanet <= 0) {
-				// Set radius based on mass
-				// Use formula Radius = 72483+(15496 * ln (JupiterMass))
-				radiusOfPlanet = 72483+(15496 * Math.Log(mass));
-			}
-		}
-		return false;
-	}
-
-=======
->>>>>>> Stashed changes
 	private void setTexture() {
 		// Set the texture based on the radius/mass
 		texture = "";

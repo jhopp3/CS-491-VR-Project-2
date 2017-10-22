@@ -15,6 +15,7 @@ public class MenuSceneButton : MonoBehaviour {
 	}
 	public void ShowPanel()
 	{
-		rt.gameObject.SetActive (!rt.gameObject.activeSelf);
+        Debug.Log("ShowPanel");
+        rt.gameObject.SetActive (!rt.gameObject.activeSelf);
 	}
 }

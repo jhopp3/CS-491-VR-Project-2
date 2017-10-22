@@ -21,18 +21,22 @@ public class RayHandler : MonoBehaviour {
     public void RaySys()
     {
         RaycastHit hit;
-        Debug.DrawRay(transform.position, transform.forward *20, Color.red, 0.5f) ;
-        //Debug.DrawRay(transform.position, new Vector3(0,-12,12) * 20, Color.red, 0.5f);
+        Debug.DrawRay(transform.position, transform.forward *250, Color.red, 0.5f) ;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 20))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 250))
         {
             if (hit.transform.tag == "UIElement")
             {
+                Debug.Log("Handler");
+                //hit.transform.GetComponent<Button>().Select();
                 hit.transform.GetComponent<Button>().onClick.Invoke();
-                hit.transform.GetComponent<Button>().Select();
-                //hit.transform.GetComponent<Button>().
-                print("horray");
-                print(hit.transform.name);
+            }
+            else if (hit.transform.tag == "Alien")
+            {
+                if (!hit.transform.GetComponent<AudioSource>().isPlaying)
+                {
+                    hit.transform.GetComponent<AudioSource>().Play();
+                }
             }
         }
     }

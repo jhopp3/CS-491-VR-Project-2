@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour {
 
@@ -16,7 +17,8 @@ public class SceneChanger : MonoBehaviour {
 	}
 	public void ChangeScene(string level_)
 	{
-		Application.LoadLevel (level_);
+        SceneManager.LoadScene(level_);
+		//Application.LoadLevel (level_);
 		//return true;
 	}
 }

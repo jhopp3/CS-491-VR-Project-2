@@ -27,10 +27,5 @@ public class StarSystem {
 		}
 
 		return "";
-<<<<<<< Updated upstream
-	}
-}
-=======
 	}		
 }
->>>>>>> Stashed changes
