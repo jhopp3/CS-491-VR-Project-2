@@ -12,11 +12,7 @@ public class StarSystem {
 
 	public void addPlanetData (PlanetData pd) {
 		Planet newPlanet = new Planet (pd, star);
-		if (!newPlanet.errorMassRadius) {
-			planets.Add (newPlanet);
-		} else {
-			// Debug.Log("Not adding planet!");
-		}
+		planets.Add (newPlanet);
 	}
 
 	public override string ToString()
@@ -31,5 +27,10 @@ public class StarSystem {
 		}
 
 		return "";
+<<<<<<< Updated upstream
 	}
 }
+=======
+	}		
+}
+>>>>>>> Stashed changes
