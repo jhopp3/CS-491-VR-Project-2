@@ -1,40 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Universe {
-	public Dictionary<string, StarSystem> StarSystems = new Dictionary<string, StarSystem>();
+	private Dictionary<string, StarSystem> AllStarSystems = new Dictionary<string, StarSystem>();
+	private Dictionary<string, StarSystem> StarSystems = new Dictionary<string, StarSystem>();
 	int count = 0;
 	public void addPlanetData(PlanetData pd) {
 		string starName = pd.pl_hostname;
 
 		StarSystem starSystem;
-		if (StarSystems.TryGetValue(starName, out starSystem)) {
+		if (AllStarSystems.TryGetValue(starName, out starSystem)) {
 			// Already have this star
 		} else {
 			// First time seeing this star
 			starSystem = new StarSystem (pd);
-			StarSystems.Add(starName, starSystem);
-
-			// Debug Star prints
-//			if (pd.pl_pnum > 5) {
-//				count++;
-//				Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
-//				Debug.Log(starSystem.ToString());
-//			}
+			AllStarSystems.Add(starName, starSystem);
 		}
 		starSystem.addPlanetData (pd);
+	}
 
-		// Debug Planet prints
-		// if ((pd.pl_pnum > 5) && (starSystem.planets.Count == 5)) {
-		// 	Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
-		// 	Debug.Log(starSystem.printFirstPlanet());
-		// }
+	public Dictionary<string, StarSystem> getStarSystems(){
+		return StarSystems;
+	}
 
-		// if (pd.pl_hostname == "tau Cet") {
-		// 	Debug.Log(count.ToString() + ": " + starName + ": " + pd.pl_pnum);
-		// 	Debug.Log(starSystem.ToString());
-		// 	Debug.Log(starSystem.printFirstPlanet());
-		// }
+	public void resetStarSystems() {
+		// Shallow copy should be fine since the data doesn't change.
+		StarSystems = AllStarSystems.ToDictionary(entry => entry.Key,
+                                               entry => entry.Value);
 	}
 }
