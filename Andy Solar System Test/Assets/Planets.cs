@@ -82,7 +82,7 @@ public class Planets : MonoBehaviour {
 	/// <param name="planets"></param>
 	/// <param name="thesePlanets"></param>
 	/// <param name="theseOrbits"></param>
-	void dealWithPlanets (string [,] planets, GameObject thesePlanets, GameObject theseOrbits){
+	void dealWithPlanets (List<Planet> planets, GameObject thesePlanets, GameObject theseOrbits){
 		GameObject newPlanetCenter;
 		GameObject newPlanet;
 
@@ -93,13 +93,13 @@ public class Planets : MonoBehaviour {
 
 		int planetCounter;
 
-		for (planetCounter = 0; planetCounter < planets.GetLength(0); planetCounter++) {
+		foreach (Planet planet in planets) {
 
-			float planetDistance = float.Parse (planets [planetCounter, 0]) / 149600000.0F * 10.0F;
-			float planetSize = float.Parse (planets [planetCounter, 1]) * 2.0F / 10000.0F;
-			float planetSpeed = -1.0F / float.Parse (planets [planetCounter, 2]);
-			string textureName = planets [planetCounter, 3];
-			string planetName = planets [planetCounter, 4];
+			float planetDistance = (float)planet.radiusOfOrbit / 149600000.0F * 10.0F;
+			float planetSize = (float)planet.radiusOfPlanet * 2.0F / 10000.0F;
+			float planetSpeed = -1.0F / (float)planet.timeToOrbit;
+			string textureName = planet.texture;
+			string planetName = planet.name;
 
 
 			newPlanetCenter = new GameObject (planetName + "Center");
@@ -129,7 +129,7 @@ public class Planets : MonoBehaviour {
 
 	//------------------------------------------------------------------------------------//
 
-	void sideDealWithPlanets (string [,] planets, GameObject thisSide, GameObject theseOrbits){
+	void sideDealWithPlanets (List<Planet> planets, GameObject thisSide, GameObject theseOrbits){
 		GameObject newPlanet;
 
 		GameObject sunRelated;
@@ -138,12 +138,12 @@ public class Planets : MonoBehaviour {
 
 		int planetCounter;
 
-		for (planetCounter = 0; planetCounter < planets.GetLength(0); planetCounter++) {
+		foreach (Planet planet in planets) {
 
-			float planetDistance = float.Parse (planets [planetCounter, 0]) / 149600000.0F * 10.0F;
-			float planetSize = float.Parse (planets [planetCounter, 1]) * 1.0F / 10000.0F;
-			string textureName = planets [planetCounter, 3];
-			string planetName = planets [planetCounter, 4];
+			float planetDistance = (float)planet.radiusOfOrbit / 149600000.0F * 10.0F;
+			float planetSize = (float)planet.radiusOfPlanet * 1.0F / 10000.0F;
+			string textureName = planet.texture;
+			string planetName = planet.name;
 
 			// limit the planets to the width of the side view
 			if ((panelXScale * planetDistance) < panelWidth) {
@@ -165,7 +165,7 @@ public class Planets : MonoBehaviour {
 
 	//------------------------------------------------------------------------------------//
 
-	void sideDealWithStar (string [] star, GameObject thisSide, GameObject theseOrbits){
+	void sideDealWithStar (Star star, GameObject thisSide, GameObject theseOrbits){
 		GameObject newSidePanel;
 		GameObject newSideSun;
 		GameObject sideSunText;
@@ -175,20 +175,20 @@ public class Planets : MonoBehaviour {
 		Material sideSunMaterial, habMaterial;
 
 		newSidePanel = GameObject.CreatePrimitive (PrimitiveType.Cube);
-		newSidePanel.name = "Side " + star[1] + " Panel";
+		newSidePanel.name = "Side " + star.name + " Panel";
 		newSidePanel.transform.position = new Vector3 (0, 0, 0);
 		newSidePanel.transform.localScale = new Vector3 (panelWidth, panelHeight, panelDepth);
 		newSidePanel.transform.parent = thisSide.transform;
 
 		newSideSun = GameObject.CreatePrimitive (PrimitiveType.Cube);
-		newSideSun.name = "Side " + star[1] + " Star";
+		newSideSun.name = "Side " + star.name + " Star";
 		newSideSun.transform.position = new Vector3 (-0.5F * panelWidth - 0.5F, 0, 0);
 		newSideSun.transform.localScale = new Vector3 (1.0F, panelHeight*40.0F, 2.0F * panelDepth);
 		newSideSun.transform.parent = thisSide.transform;
 
 		sideSunMaterial = new Material (Shader.Find ("Unlit/Texture"));
 		newSideSun.GetComponent<MeshRenderer> ().material = sideSunMaterial;
-		sideSunMaterial.mainTexture = Resources.Load (star[2]) as Texture;
+		sideSunMaterial.mainTexture = Resources.Load (star.texture) as Texture;
 
 
 		sideSunText = new GameObject();
@@ -196,12 +196,12 @@ public class Planets : MonoBehaviour {
 		sideSunText.transform.position = new Vector3 (-0.47F * panelWidth, 22.0F * panelHeight, 0);
 		sideSunText.transform.localScale = new Vector3 (0.1F, 0.1F, 0.1F);
 		var sunTextMesh = sideSunText.AddComponent<TextMesh>();
-		sunTextMesh.text = star[1];
+		sunTextMesh.text = star.name;
 		sunTextMesh.fontSize = 150;
 		sideSunText.transform.parent = thisSide.transform;
 
-		float innerHab = float.Parse (star[4]) * 9.5F;
-		float outerHab = float.Parse (star[4]) * 14F;
+		float innerHab = (float)star.luminosity * 9.5F;
+		float outerHab = (float)star.luminosity * 14F;
 
 
 		// need to take panelXScale into account for the hab zone
@@ -220,7 +220,7 @@ public class Planets : MonoBehaviour {
 
 	//------------------------------------------------------------------------------------//
 
-	void dealWithStar (string [] star, GameObject thisStar, GameObject theseOrbits){
+	void dealWithStar (Star star, GameObject thisStar, GameObject theseOrbits){
 
 		GameObject newSun, upperSun;
 		Material sunMaterial;
@@ -229,17 +229,18 @@ public class Planets : MonoBehaviour {
 		GameObject sunSupport;
 		GameObject sunText;
 
-		float sunScale = float.Parse(star [0]) / 100000F;
+		// string[] sol = new string[5] { "695500", "Our Sun", "sol", "G2V", "1.0" };
+		float sunScale = (float)star.radius / 100000F;
 		float centerSunSize = 0.25F;
 
 		// set the habitable zone based on the star's luminosity
-		float innerHab = float.Parse (star[4]) * 9.5F;
-		float outerHab = float.Parse (star[4]) * 14F;
+		float innerHab = (float)star.luminosity * 9.5F;
+		float outerHab = (float)star.luminosity * 14F;
 
 
 		newSun = GameObject.CreatePrimitive (PrimitiveType.Sphere);
 		newSun.AddComponent<rotate> ();
-		newSun.name = star[1];
+		newSun.name = star.name;
 		newSun.transform.position = new Vector3 (0, 0, 0);
 		newSun.transform.localScale = new Vector3 (centerSunSize, centerSunSize, centerSunSize);
 
@@ -249,7 +250,7 @@ public class Planets : MonoBehaviour {
 
 		sunMaterial = new Material (Shader.Find ("Unlit/Texture"));
 		newSun.GetComponent<MeshRenderer> ().material = sunMaterial;
-		sunMaterial.mainTexture = Resources.Load (star[2]) as Texture;
+		sunMaterial.mainTexture = Resources.Load (star.texture) as Texture;
 
 		newSun.transform.parent = sunRelated.transform;
 
@@ -257,7 +258,7 @@ public class Planets : MonoBehaviour {
 		// copy the sun and make a bigger version above
 
 		upperSun = Instantiate (newSun);
-		upperSun.name = star[1] + " upper";
+		upperSun.name = star.name + " upper";
 		upperSun.transform.localScale = new Vector3 (sunScale,sunScale,sunScale);
 		upperSun.transform.position = new Vector3 (0, 10, 0);
 
@@ -277,7 +278,7 @@ public class Planets : MonoBehaviour {
 		sunText.transform.position = new Vector3 (0, 5, 0);
 		sunText.transform.localScale = new Vector3 (0.1F, 0.1F, 0.1F);
 		var sunTextMesh = sunText.AddComponent<TextMesh>();
-		sunTextMesh.text = star[1];
+		sunTextMesh.text = star.name;
 		sunTextMesh.fontSize = 200;
 
 		sunText.transform.parent = sunRelated.transform;
@@ -289,11 +290,21 @@ public class Planets : MonoBehaviour {
 	}
 
 	//------------------------------------------------------------------------------------//
-	void dealWithSystem(Star star, List<Planet> planets, Vector3 offset, GameObject allThings){
-		Debug.Log("dealWithSystem!!!!!!!");
+	void dealWithSystem(string[] starInfo, string[,] planetInfo, Vector3 offset, GameObject allThings){
+		// Remnant of dealing with our solar system values in string array form
+		Star s = new Star (starInfo);
+		List<Planet> planetList = new List<Planet>();
+
+		for (int i = 0; i < planetInfo.GetLength(0); i++) {
+			string[] planetArray = new string[] { planetInfo[i,0], planetInfo[i,1], planetInfo[i,2], planetInfo[i,3], planetInfo[i,4] };
+			Planet p = new Planet(planetArray, s);
+			planetList.Add(p);
+		}
+
+		dealWithSystem(s, planetList, offset, allThings);
 	}
 
-	void dealWithSystem(string[] starInfo, string[,] planetInfo, Vector3 offset, GameObject allThings){
+	void dealWithSystem(Star star, List<Planet> planets, Vector3 offset, GameObject allThings){
 
 		GameObject SolarCenter;
 		GameObject AllOrbits;
@@ -305,10 +316,10 @@ public class Planets : MonoBehaviour {
 		SunStuff = new GameObject();
 		Planets = new GameObject();
 
-		SolarCenter.name = "SolarCenter" + " " + starInfo[1];
-		AllOrbits.name = "All Orbits" + " " + starInfo[1];
-		SunStuff.name = "Sun Stuff" + " " + starInfo[1];
-		Planets.name = "Planets" + " " + starInfo[1];
+		SolarCenter.name = "SolarCenter" + " " + star.name;
+		AllOrbits.name = "All Orbits" + " " + star.name;
+		SunStuff.name = "Sun Stuff" + " " + star.name;
+		Planets.name = "Planets" + " " + star.name;
 
 		SolarCenter.transform.parent = allThings.transform;
 
@@ -317,14 +328,14 @@ public class Planets : MonoBehaviour {
 		Planets.transform.parent = SolarCenter.transform;
 
 		if (sceneType == SceneTypes.ThreeDStars) {
-			dealWithStar (starInfo, SunStuff, AllOrbits);
+			dealWithStar (star, SunStuff, AllOrbits);
 			// need to do this last
 			SolarCenter.transform.position = offset;
 
 		}
 		if (sceneType == SceneTypes.ThreeDSystems) {
-			dealWithStar (starInfo, SunStuff, AllOrbits);
-			dealWithPlanets (planetInfo, Planets, AllOrbits);
+			dealWithStar (star, SunStuff, AllOrbits);
+			dealWithPlanets (planets, Planets, AllOrbits);
 
 			// need to do this last
 			SolarCenter.transform.position = offset;
@@ -334,11 +345,11 @@ public class Planets : MonoBehaviour {
 		if (sceneType == SceneTypes.TwoD) {
 			GameObject SolarSide;
 			SolarSide = new GameObject ();
-			SolarSide.name = "Side View of" + starInfo [1];
+			SolarSide.name = "Side View of" + star.name;
 
 
-			sideDealWithStar (starInfo, SolarSide, AllOrbits);
-			sideDealWithPlanets (planetInfo, SolarSide, AllOrbits);
+			sideDealWithStar (star, SolarSide, AllOrbits);
+			sideDealWithPlanets (planets, SolarSide, AllOrbits);
 
 			SolarSide.transform.position = new Vector3 (0, 8, 10.0F);
 			SolarSide.transform.position += (offset * 0.15F);
