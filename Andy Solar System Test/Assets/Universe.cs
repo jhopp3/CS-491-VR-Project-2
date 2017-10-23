@@ -99,7 +99,24 @@ public class Universe {
 	}
 
 	public void sortedAlphabetical() {
+		SortedDictionary<string, StarSystem> sortedDict = new SortedDictionary<string, StarSystem>();
+		foreach(KeyValuePair<string, StarSystem> entry in AllStarSystems)
+		{
+			string name = entry.Key;
+			StarSystem ss = entry.Value;
+			sortedDict.Add(name, ss);
+		}
 
+		Dictionary<string, StarSystem> outDict = new Dictionary<string, StarSystem>();
+
+		foreach(KeyValuePair<string, StarSystem> entry in sortedDict)
+		{
+			string name = entry.Key;
+			StarSystem ss = entry.Value;
+			outDict.Add(name, ss);
+		}
+
+		StarSystems = outDict;
 	}
 
 	public class UniverseSorter {
