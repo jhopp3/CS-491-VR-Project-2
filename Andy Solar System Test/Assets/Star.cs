@@ -5,6 +5,7 @@ using System;
 
 public class Star {
 	public double luminosity;
+	public double luminosityLog; // [log(solar)] units
 	public string name;
 	public double distanceFromUs; // in parsecs
 	public string type; // Classification of the star based on their spectral characteristics following the Morgan-Keenan system.
@@ -17,6 +18,7 @@ public class Star {
 	public const int EARTH_RADIUS = 695500;
 
 	public Star (PlanetData pd) {
+		luminosityLog = pd.st_lum;
 		luminosity = Math.Exp(pd.st_lum);
 		name = pd.pl_hostname;
 		distanceFromUs = pd.st_dist;

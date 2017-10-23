@@ -372,7 +372,9 @@ public class Planets : MonoBehaviour {
 		THE_UNIVERSE.resetStarSystems();
 		// THE_UNIVERSE.nearestEarth();
 		// THE_UNIVERSE.mostPlanets();
-		THE_UNIVERSE.mostLikelyHabitable();
+		// THE_UNIVERSE.mostLikelyHabitable();
+		THE_UNIVERSE.mostLikeSun();
+		// THE_UNIVERSE.sortedAlphabetical();
 
 		Debug.Log("Loaded: " + THE_UNIVERSE.getStarSystems().Count.ToString() + " Star Systems.");
 		Debug.Log("Loaded: " + count.ToString() + " Planets.");

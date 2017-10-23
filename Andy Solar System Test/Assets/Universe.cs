@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using UnityEngine;
 
 public class Universe {
@@ -38,13 +39,13 @@ public class Universe {
 		foreach(KeyValuePair<string, StarSystem> entry in AllStarSystems)
 		{
 			StarSystem ss = entry.Value;
-			double distanceToStar;
+			double luminosityDifference;
 			if (ss.star.distanceFromUs <= 0) {
-				distanceToStar = double.MaxValue;
+				luminosityDifference = double.MaxValue;
 			} else {
-				distanceToStar = ss.star.distanceFromUs;
+				luminosityDifference = ss.star.distanceFromUs;
 			}
-			uSorter.add(distanceToStar, ss);
+			uSorter.add(luminosityDifference, ss);
 		}
 		StarSystems = uSorter.get();
 	}
@@ -55,6 +56,7 @@ public class Universe {
 		{
 			StarSystem ss = entry.Value;
 			double planetsInSystem;
+			// Assume int.MaxValue > planets in a star system.
 			planetsInSystem = int.MaxValue - ss.star.numberOfPlanets;
 			uSorter.add(planetsInSystem, ss);
 		}
@@ -81,7 +83,19 @@ public class Universe {
 	}
 
 	public void mostLikeSun() {
-
+		UniverseSorter uSorter = new UniverseSorter();
+		foreach(KeyValuePair<string, StarSystem> entry in AllStarSystems)
+		{
+			StarSystem ss = entry.Value;
+			double luminosityDifference;
+			if (ss.star.luminosityLog == 0) {
+				luminosityDifference = double.MaxValue;
+			} else {
+				luminosityDifference = Math.Abs(ss.star.luminosityLog);
+			}
+			uSorter.add(luminosityDifference, ss);
+		}
+		StarSystems = uSorter.get();
 	}
 
 	public void sortedAlphabetical() {
