@@ -37,3 +37,4 @@ sysinfo.txt
 *.info
 *.bin
 
+.vscode/*
