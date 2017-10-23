@@ -299,19 +299,25 @@ public class Planets : MonoBehaviour {
 		GameObject sunSupport;
 		GameObject sunText;
 
-		const float PLANET_SIZE_IN_3D_STARS = 10F;
+		const bool CONSTANT_SIZED_STARS = true;
+		const float PLANET_SIZE_IN_3D_STARS = 5F;
+		const float MOVE_SPEED = 2F;
 
-		float sunScale = PLANET_SIZE_IN_3D_STARS;
+		float sunScale;
+		if (CONSTANT_SIZED_STARS) {
+			sunScale = PLANET_SIZE_IN_3D_STARS;
+		} else {
+			sunScale = (float)star.radius / 100000F;
+		}
+
 		float centerSunSize = 0.25F;
 
 		// https://en.wikipedia.org/wiki/Ecliptic_coordinate_system
 		float r,b,l; // Ecliptic distance, latitude, longitude
 		float x,y,z; // Rectangular
 
-		r = (float)star.distanceFromUs;
-
-		// TODO: Just for testing.  Delete when working.
-		r = 1000F;
+		const float DISTANCE_SCALER = 25F;
+		r = (float)star.distanceFromUs * DISTANCE_SCALER;
 
 		b = (float)star.eclipticLatitude;
 		l = (float)star.eclipticLongitude;
