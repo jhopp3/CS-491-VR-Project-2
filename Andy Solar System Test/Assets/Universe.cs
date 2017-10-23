@@ -62,10 +62,29 @@ public class Universe {
 	}
 
 	public void mostLikelyHabitable() {
+		// We want closest to:
+		// 1.175 * (Luminosity of this star / Luminosity of our sun) in astronomical units
+		UniverseSorter uSorter = new UniverseSorter();
+		double distanceFromOptimal;
 
+		foreach(KeyValuePair<string, StarSystem> entry in AllStarSystems)
+		{
+			StarSystem ss = entry.Value;
+			if (ss.star.luminosity <= 0) {
+				distanceFromOptimal = double.MaxValue;
+			} else {
+				distanceFromOptimal = ss.getMostOptimalPlanetDistance();
+			}
+			uSorter.add(distanceFromOptimal, ss);
+		}
+		StarSystems = uSorter.get();
 	}
 
 	public void mostLikeSun() {
+
+	}
+
+	public void sortedAlphabetical() {
 
 	}
 
