@@ -15,6 +15,9 @@ public class Star {
 	public string texture;
 	public char spectralType;
 
+	public double eclipticLatitude; // in degrees
+	public double eclipticLongitude; // in degrees
+
 	public const int EARTH_RADIUS = 695500;
 
 	public Star (PlanetData pd) {
@@ -25,6 +28,8 @@ public class Star {
 		type = pd.st_spstr;
 		radius = pd.st_rad * EARTH_RADIUS;
 		numberOfPlanets = pd.pl_pnum;
+		eclipticLatitude = pd.st_elat;
+		eclipticLongitude = pd.st_elon;
 
 		setTexture();
 	}
