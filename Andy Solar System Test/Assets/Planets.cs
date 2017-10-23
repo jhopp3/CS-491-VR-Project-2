@@ -107,6 +107,7 @@ public class Planets : MonoBehaviour {
 
 			newPlanet = GameObject.CreatePrimitive (PrimitiveType.Sphere);
 			newPlanet.name = planetName;
+			newPlanet.tag = "Planet";
 			newPlanet.transform.position = new Vector3 (0, 0, planetDistance * orbitXScale);
 			newPlanet.transform.localScale = new Vector3 (planetSize, planetSize, planetSize);
 			newPlanet.transform.parent = newPlanetCenter.transform;
@@ -149,6 +150,7 @@ public class Planets : MonoBehaviour {
 
 				newPlanet = GameObject.CreatePrimitive (PrimitiveType.Sphere);
 				newPlanet.name = planetName;
+				newPlanet.tag = "Planet";
 				newPlanet.transform.position = new Vector3 (-0.5F * panelWidth + planetDistance * panelXScale, 0, 0);
 				newPlanet.transform.localScale = new Vector3 (planetSize, planetSize, 5.0F * panelDepth);
 
@@ -177,9 +179,10 @@ public class Planets : MonoBehaviour {
 		newSidePanel.transform.position = new Vector3 (0, 0, 0);
 		newSidePanel.transform.localScale = new Vector3 (panelWidth, panelHeight, panelDepth);
 		newSidePanel.transform.parent = thisSide.transform;
-
+		
 		newSideSun = GameObject.CreatePrimitive (PrimitiveType.Cube);
 		newSideSun.name = "Side " + star.name + " Star";
+		newSideSun.tag = "Star";
 		newSideSun.transform.position = new Vector3 (-0.5F * panelWidth - 0.5F, 0, 0);
 		newSideSun.transform.localScale = new Vector3 (1.0F, panelHeight*40.0F, 2.0F * panelDepth);
 		newSideSun.transform.parent = thisSide.transform;
@@ -254,6 +257,7 @@ public class Planets : MonoBehaviour {
 
 		upperSun = Instantiate (newSun);
 		upperSun.name = star.name + " upper";
+		upperSun.tag = "Star";
 		upperSun.transform.localScale = new Vector3 (sunScale,sunScale,sunScale);
 		upperSun.transform.position = new Vector3 (0, 10, 0);
 
@@ -339,9 +343,9 @@ public class Planets : MonoBehaviour {
 		// add in second 'flat' representation
 		if (sceneType == SceneTypes.TwoD) {
 			GameObject SolarSide;
-			SolarSide = new GameObject ();
+			SolarSide = new GameObject();
 			SolarSide.name = "Side View of" + star.name;
-
+			BoxCollider bCollider = SolarSide.AddComponent(typeof(BoxCollider)) as BoxCollider;
 
 			sideDealWithStar (star, SolarSide, AllOrbits);
 			sideDealWithPlanets (planets, SolarSide, AllOrbits);

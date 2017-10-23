@@ -27,8 +27,7 @@ public class RayHandler : MonoBehaviour {
         {
             if (hit.transform.tag == "UIElement")
             {
-                Debug.Log("Handler");
-                //hit.transform.GetComponent<Button>().Select();
+                hit.transform.GetComponent<Button>().Select();
                 hit.transform.GetComponent<Button>().onClick.Invoke();
             }
             else if (hit.transform.tag == "Alien")
@@ -37,6 +36,14 @@ public class RayHandler : MonoBehaviour {
                 {
                     hit.transform.GetComponent<AudioSource>().Play();
                 }
+            }
+            else if (hit.transform.tag == "Planets")
+            {
+
+            }
+            else if (hit.transform.tag == "Star")
+            {
+
             }
         }
     }
