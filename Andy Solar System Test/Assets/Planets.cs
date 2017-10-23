@@ -303,9 +303,11 @@ public class Planets : MonoBehaviour {
 			Planet p = new Planet(planetArray, s);
 			planetList.Add(p);
 		}
+      
+            dealWithSystem(s, planetList, offset, allThings);
 
-		dealWithSystem(s, planetList, offset, allThings);
-	}
+
+    }
 
 	void dealWithSystem(Star star, List<Planet> planets, Vector3 offset, GameObject allThings){
 
@@ -354,10 +356,9 @@ public class Planets : MonoBehaviour {
             bCollider.center = new Vector3(100, 0, 0);
             bCollider.size = new Vector3(300, 4, 1);
 
-			sideDealWithStar (star, SolarSide, AllOrbits);
+            sideDealWithStar (star, SolarSide, AllOrbits);
 			sideDealWithPlanets (planets, SolarSide, AllOrbits);
-
-			SolarSide.transform.position = new Vector3 (0, 8, 10.0F);
+            SolarSide.transform.position = new Vector3 (0, 8, 10.0F);
 			SolarSide.transform.position += (offset * 0.15F);
 		}
 
@@ -414,24 +415,60 @@ public class Planets : MonoBehaviour {
 
 		systemOffset += oneOffset;
 
-		// dealWithSystem(TauCeti, TauCetiPlanets, systemOffset, allCenter);
+        // dealWithSystem(TauCeti, TauCetiPlanets, systemOffset, allCenter);
 
-		// systemOffset += oneOffset;
+        // systemOffset += oneOffset;
 
-		// dealWithSystem(Gliese581, Gliese581Planets, systemOffset, allCenter);
+        // dealWithSystem(Gliese581, Gliese581Planets, systemOffset, allCenter);
 
-		// int count = 0;
+        // int count = 0;
+        if (sceneType == SceneTypes.ThreeDStars)
+        {
+            foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems)
+            {
+                // do something with entry.Value or entry.Key
+                StarSystem ss = entry.Value;
+                // count++;
+                // if (count%50 == 0) {
+                // 	Debug.Log(count.ToString() + " " + ss.ToString());
+                // }
+                dealWithSystem(ss.star, ss.planets, systemOffset, allCenter);
+                systemOffset += oneOffset;
 
-		foreach(KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems) {
-			// do something with entry.Value or entry.Key
-			StarSystem ss = entry.Value;
-			// count++;
-			// if (count%50 == 0) {
-			// 	Debug.Log(count.ToString() + " " + ss.ToString());
-			// }
-			dealWithSystem(ss.star, ss.planets, systemOffset, allCenter);
-			systemOffset += oneOffset;
-		}
+            }
+        }
+            if (sceneType == SceneTypes.ThreeDSystems)
+            {
+                foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems)
+                {
+                    // do something with entry.Value or entry.Key
+                    StarSystem ss = entry.Value;
+                    // count++;
+                    // if (count%50 == 0) {
+                    // 	Debug.Log(count.ToString() + " " + ss.ToString());
+                    // }
+                    dealWithSystem(ss.star, ss.planets, systemOffset, allCenter);
+                    systemOffset += oneOffset;
+
+                }
+            }
+         
+        // add in second 'flat' representation
+        if (sceneType == SceneTypes.TwoD)
+        {
+                      foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems)
+                       {
+                               
+                                StarSystem ss = entry.Value;
+                               
+                                dealWithSystem(ss.star, ss.planets, systemOffset, allCenter);
+                                systemOffset += oneOffset;
+
+                            }
+
+        }
+        
+
 	}
 
 	//------------------------------------------------------------------------------------//
