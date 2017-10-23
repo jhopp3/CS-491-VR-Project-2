@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 
 public class Planets : MonoBehaviour {
@@ -289,6 +290,91 @@ public class Planets : MonoBehaviour {
 		}
 	}
 
+	Vector3 dealWithStarInSpace (Star star, GameObject thisStar){
+
+		GameObject newSun, upperSun;
+		Material sunMaterial;
+
+		GameObject sunRelated;
+		GameObject sunSupport;
+		GameObject sunText;
+
+		const bool CONSTANT_SIZED_STARS = false;
+		const float PLANET_SIZE_IN_3D_STARS = 5F;
+
+		float sunScale;
+		if (CONSTANT_SIZED_STARS) {
+			sunScale = PLANET_SIZE_IN_3D_STARS;
+		} else {
+			sunScale = (float)star.radius / 100000F;
+		}
+
+		float centerSunSize = 0.25F;
+
+		// https://en.wikipedia.org/wiki/Ecliptic_coordinate_system
+		float r,b,l; // Ecliptic distance, latitude, longitude
+		float x,y,z; // Rectangular
+
+		const float DISTANCE_SCALER = 25F;
+		r = (float)star.distanceFromUs * DISTANCE_SCALER;
+
+		b = (float)star.eclipticLatitude;
+		l = (float)star.eclipticLongitude;
+
+		x = (float)(r * Math.Cos(b) * Math.Cos(l));
+		y = (float)(r * Math.Cos(b) * Math.Sin(l));
+		z = (float)(r * Math.Sin(b));
+
+		Vector3 location = new Vector3(x, y, z);
+
+		newSun = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+		newSun.AddComponent<rotate> ();
+		newSun.name = star.name;
+		newSun.transform.position = new Vector3 (0, 0, 0);
+		newSun.transform.localScale = new Vector3 (centerSunSize, centerSunSize, centerSunSize);
+
+		sunRelated = thisStar;
+
+		newSun.GetComponent<rotate> ().rotateSpeed = -0.25F;
+
+		sunMaterial = new Material (Shader.Find ("Unlit/Texture"));
+		newSun.GetComponent<MeshRenderer> ().material = sunMaterial;
+		sunMaterial.mainTexture = Resources.Load (star.texture) as Texture;
+
+		newSun.transform.parent = sunRelated.transform;
+
+
+		// copy the sun and make a bigger version above
+
+		upperSun = Instantiate (newSun);
+		upperSun.name = star.name + " upper";
+		upperSun.transform.localScale = new Vector3 (sunScale,sunScale,sunScale);
+		upperSun.transform.position = new Vector3 (0, 10, 0);
+
+		upperSun.transform.parent = sunRelated.transform;
+
+		// draw the support between them
+		sunSupport = GameObject.CreatePrimitive (PrimitiveType.Cube);
+		sunSupport.transform.localScale = new Vector3 (0.1F, 10.0F, 0.1F);
+		sunSupport.transform.position = new Vector3 (0, 5, 0);
+		sunSupport.name = "Sun Support";
+
+		sunSupport.transform.parent = sunRelated.transform;
+
+
+		sunText = new GameObject();
+		sunText.name = "Star Name";
+		sunText.transform.position = new Vector3 (0, 5, 0);
+		sunText.transform.localScale = new Vector3 (0.1F, 0.1F, 0.1F);
+		var sunTextMesh = sunText.AddComponent<TextMesh>();
+		sunTextMesh.text = star.name;
+		sunTextMesh.fontSize = 200;
+
+		sunText.transform.parent = sunRelated.transform;
+
+		return location;
+	}
+
 	//------------------------------------------------------------------------------------//
 	void dealWithSystem(string[] starInfo, string[,] planetInfo, Vector3 offset, GameObject allThings){
 		// Remnant of dealing with our solar system values in string array form
@@ -328,10 +414,7 @@ public class Planets : MonoBehaviour {
 		Planets.transform.parent = SolarCenter.transform;
 
 		if (sceneType == SceneTypes.ThreeDStars) {
-			dealWithStar (star, SunStuff, AllOrbits);
-			// need to do this last
-			SolarCenter.transform.position = offset;
-
+			SolarCenter.transform.position = dealWithStarInSpace (star, SunStuff);;
 		}
 		if (sceneType == SceneTypes.ThreeDSystems) {
 			dealWithStar (star, SunStuff, AllOrbits);

@@ -4,10 +4,12 @@ using UnityEngine;
 using System;
 
 public class Star {
+	private const int DEFAULT_DISTANCE = 10000;
+
 	public double luminosity;
 	public double luminosityLog; // [log(solar)] units
 	public string name;
-	public double distanceFromUs; // in parsecs
+	public double distanceFromUs = DEFAULT_DISTANCE; // in parsecs
 	public string type; // Classification of the star based on their spectral characteristics following the Morgan-Keenan system.
 	public double radius;
 //	public string spectralClassification; // Same as type?
@@ -15,16 +17,25 @@ public class Star {
 	public string texture;
 	public char spectralType;
 
+	public double eclipticLatitude; // in degrees
+	public double eclipticLongitude; // in degrees
+
 	public const int EARTH_RADIUS = 695500;
 
 	public Star (PlanetData pd) {
 		luminosityLog = pd.st_lum;
 		luminosity = Math.Exp(pd.st_lum);
 		name = pd.pl_hostname;
-		distanceFromUs = pd.st_dist;
+		if (pd.st_dist > 0) {
+			distanceFromUs = pd.st_dist;
+		}
 		type = pd.st_spstr;
 		radius = pd.st_rad * EARTH_RADIUS;
 		numberOfPlanets = pd.pl_pnum;
+		eclipticLatitude = pd.st_elat;
+		// if (eclipticLatitude == 0) { Debug.LogError("ELat Error"); }
+		eclipticLongitude = pd.st_elon;
+		// if (eclipticLatitude == 0) { Debug.LogError("ELong Error"); }
 
 		setTexture();
 	}
