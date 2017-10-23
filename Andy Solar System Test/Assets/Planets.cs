@@ -299,9 +299,8 @@ public class Planets : MonoBehaviour {
 		GameObject sunSupport;
 		GameObject sunText;
 
-		const bool CONSTANT_SIZED_STARS = true;
+		const bool CONSTANT_SIZED_STARS = false;
 		const float PLANET_SIZE_IN_3D_STARS = 5F;
-		const float MOVE_SPEED = 2F;
 
 		float sunScale;
 		if (CONSTANT_SIZED_STARS) {
