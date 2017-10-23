@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-public class MenuSceneButton : MonoBehaviour {
-	public RectTransform rt;
+
+public class ObjectSelection : MonoBehaviour {
+    public bool isSelected;
 	// Use this for initialization
 	void Start () {
 		
@@ -12,9 +12,5 @@ public class MenuSceneButton : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-	}
-	public void ShowPanel()
-	{
-        rt.gameObject.SetActive (!rt.gameObject.activeSelf);
 	}
 }

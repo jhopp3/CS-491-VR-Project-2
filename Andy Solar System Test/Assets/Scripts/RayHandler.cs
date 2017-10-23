@@ -1,14 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class RayHandler : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-        
-
+    // Use this for initialization
+    void Start () {
 
     }
 	
@@ -37,13 +32,49 @@ public class RayHandler : MonoBehaviour {
                     hit.transform.GetComponent<AudioSource>().Play();
                 }
             }
-            else if (hit.transform.tag == "Planets")
+            else if (hit.transform.tag == "Planet")
             {
+                
+                if (Input.GetAxis("Submit") > 0.4f)
+                {
+                    string name = hit.transform.GetComponent<MeshRenderer>().material.ToString();
+                    string[] arr = name.Split(' ');
+                    int tester = arr[0].Length;
+                    Debug.Log(tester);
+                    if (tester > 9)
+                    {
+                        string edited = arr[0].Substring(0, arr[0].Length - 6);
+                        Debug.Log(edited);
+                        Material planetMaterial = Resources.Load(edited, typeof(Material)) as Material;
+                        hit.transform.GetComponent<MeshRenderer>().material = planetMaterial;
+                        hit.transform.GetComponent<ObjectSelection>().isSelected = false;
 
+                    }
+                    else
+                    {
+                        Material planetMaterial = Resources.Load(arr[0] + "Shaded", typeof(Material)) as Material;
+                        hit.transform.GetComponent<MeshRenderer>().material = planetMaterial;
+                        hit.transform.GetComponent<ObjectSelection>().isSelected = true;
+                    }
+                    Debug.Log("Click Planet");
+                }
             }
             else if (hit.transform.tag == "Star")
             {
-
+                if (Input.GetAxis("Submit") > 0.4f)
+                {
+                    Debug.Log("Click star");
+                }
+            }
+            else if (hit.transform.tag == "Panel")
+            {
+               if (Input.GetAxis("Submit") > 0.4f )
+                {
+                   /* do {
+                        hit.transform.GetComponent<Transform>().localPosition = hit.point;
+                    } while (Input.GetAxis("Submit") > 0.4f);*/
+                    Debug.Log("Click Panel");
+                }
             }
         }
     }

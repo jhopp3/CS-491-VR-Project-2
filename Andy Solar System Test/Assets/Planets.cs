@@ -111,8 +111,9 @@ public class Planets : MonoBehaviour {
 			newPlanet.transform.position = new Vector3 (0, 0, planetDistance * orbitXScale);
 			newPlanet.transform.localScale = new Vector3 (planetSize, planetSize, planetSize);
 			newPlanet.transform.parent = newPlanetCenter.transform;
+            newPlanet.AddComponent<ObjectSelection>();
 
-			newPlanetCenter.GetComponent<rotate> ().rotateSpeed = planetSpeed;
+            newPlanetCenter.GetComponent<rotate> ().rotateSpeed = planetSpeed;
 			newPlanetCenter.GetComponent<rotate>().SetRevolution(revolutionSpeed);
 
 			planetMaterial = Resources.Load(textureName, typeof(Material)) as Material;
@@ -153,8 +154,9 @@ public class Planets : MonoBehaviour {
 				newPlanet.tag = "Planet";
 				newPlanet.transform.position = new Vector3 (-0.5F * panelWidth + planetDistance * panelXScale, 0, 0);
 				newPlanet.transform.localScale = new Vector3 (planetSize, planetSize, 5.0F * panelDepth);
+                newPlanet.AddComponent<ObjectSelection>();
 
-				planetMaterial = Resources.Load(textureName, typeof(Material)) as Material;
+                planetMaterial = Resources.Load(textureName, typeof(Material)) as Material;
 				newPlanet.GetComponent<MeshRenderer> ().material = planetMaterial;
 
 				sunRelated = thisSide;
@@ -186,8 +188,9 @@ public class Planets : MonoBehaviour {
 		newSideSun.transform.position = new Vector3 (-0.5F * panelWidth - 0.5F, 0, 0);
 		newSideSun.transform.localScale = new Vector3 (1.0F, panelHeight*40.0F, 2.0F * panelDepth);
 		newSideSun.transform.parent = thisSide.transform;
+        newSideSun.AddComponent<ObjectSelection>();
 
-		sideSunMaterial = Resources.Load(star.texture, typeof(Material)) as Material;
+        sideSunMaterial = Resources.Load(star.texture, typeof(Material)) as Material;
 		newSideSun.GetComponent<MeshRenderer> ().material = sideSunMaterial;
 
 		sideSunText = new GameObject();
@@ -260,6 +263,7 @@ public class Planets : MonoBehaviour {
 		upperSun.tag = "Star";
 		upperSun.transform.localScale = new Vector3 (sunScale,sunScale,sunScale);
 		upperSun.transform.position = new Vector3 (0, 10, 0);
+        upperSun.AddComponent<ObjectSelection>();
 
 		upperSun.transform.parent = sunRelated.transform;
 
@@ -345,7 +349,10 @@ public class Planets : MonoBehaviour {
 			GameObject SolarSide;
 			SolarSide = new GameObject();
 			SolarSide.name = "Side View of" + star.name;
+			SolarSide.tag = "Panel";
 			BoxCollider bCollider = SolarSide.AddComponent(typeof(BoxCollider)) as BoxCollider;
+            bCollider.center = new Vector3(100, 0, 0);
+            bCollider.size = new Vector3(300, 4, 1);
 
 			sideDealWithStar (star, SolarSide, AllOrbits);
 			sideDealWithPlanets (planets, SolarSide, AllOrbits);
