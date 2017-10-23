@@ -114,10 +114,9 @@ public class Planets : MonoBehaviour {
 			newPlanetCenter.GetComponent<rotate> ().rotateSpeed = planetSpeed;
 			newPlanetCenter.GetComponent<rotate>().SetRevolution(revolutionSpeed);
 
-			planetMaterial = new Material (Shader.Find ("Standard"));
+			planetMaterial = Resources.Load(textureName, typeof(Material)) as Material;
 			newPlanet.GetComponent<MeshRenderer> ().material = planetMaterial;
-			planetMaterial.mainTexture = Resources.Load (textureName) as Texture;
-
+			
 			drawOrbit (planetName + " orbit", planetDistance * orbitXScale, Color.white, orbitWidth, theseOrbits);
 
 			sunRelated = thesePlanets;
@@ -153,9 +152,8 @@ public class Planets : MonoBehaviour {
 				newPlanet.transform.position = new Vector3 (-0.5F * panelWidth + planetDistance * panelXScale, 0, 0);
 				newPlanet.transform.localScale = new Vector3 (planetSize, planetSize, 5.0F * panelDepth);
 
-				planetMaterial = new Material (Shader.Find ("Standard"));
+				planetMaterial = Resources.Load(textureName, typeof(Material)) as Material;
 				newPlanet.GetComponent<MeshRenderer> ().material = planetMaterial;
-				planetMaterial.mainTexture = Resources.Load (textureName) as Texture;
 
 				sunRelated = thisSide;
 				newPlanet.transform.parent = sunRelated.transform;
@@ -186,10 +184,8 @@ public class Planets : MonoBehaviour {
 		newSideSun.transform.localScale = new Vector3 (1.0F, panelHeight*40.0F, 2.0F * panelDepth);
 		newSideSun.transform.parent = thisSide.transform;
 
-		sideSunMaterial = new Material (Shader.Find ("Unlit/Texture"));
+		sideSunMaterial = Resources.Load(star.texture, typeof(Material)) as Material;
 		newSideSun.GetComponent<MeshRenderer> ().material = sideSunMaterial;
-		sideSunMaterial.mainTexture = Resources.Load (star.texture) as Texture;
-
 
 		sideSunText = new GameObject();
 		sideSunText.name = "Side Star Name";
@@ -248,9 +244,8 @@ public class Planets : MonoBehaviour {
 
 		newSun.GetComponent<rotate> ().rotateSpeed = -0.25F;
 
-		sunMaterial = new Material (Shader.Find ("Unlit/Texture"));
+		sunMaterial = Resources.Load(star.texture, typeof(Material)) as Material;
 		newSun.GetComponent<MeshRenderer> ().material = sunMaterial;
-		sunMaterial.mainTexture = Resources.Load (star.texture) as Texture;
 
 		newSun.transform.parent = sunRelated.transform;
 
