@@ -15,6 +15,7 @@ public class ResetScript : MonoBehaviour {
 	}
     public void reseter()
     {
-
+             Scene scene = SceneManager.GetActiveScene();
+			 SceneManager.LoadScene(scene.name);
     }
 }
