@@ -34,11 +34,24 @@ public class Universe {
 	// nearest to the Earth, most planets, most planets likely to be habitable,
 	// stars most like the sun
 	public void nearestEarth() {
-		UniverseSorter msu = new UniverseSorter();
-		foreach(KeyValuePair<string, StarSystem> starSystem in AllStarSystems)
+		UniverseSorter uSorter = new UniverseSorter();
+		// int count = 0;
+		foreach(KeyValuePair<string, StarSystem> entry in AllStarSystems)
 		{
-			// UniverseSorter(starSystem.star.distanceFromUs, starSystem);
+			StarSystem ss = entry.Value;
+			// count++;
+			double distanceToStar;
+			if (ss.star.distanceFromUs <= 0) {
+				distanceToStar = double.MaxValue;
+			} else {
+				distanceToStar = ss.star.distanceFromUs;
+			}
+			uSorter.add(distanceToStar, ss);
 		}
+		// Debug.Log("Nearest * " + count.ToString());
+		StarSystems = uSorter.get();
+		// Debug.Log("SortedDict: " + uSorter.sortedDict.Count + " StarSystems.");
+		// Debug.Log("Sorted with: " + StarSystems.Count + " StarSystems.");
 	}
 
 	public void mostPlanets() {
@@ -55,21 +68,24 @@ public class Universe {
 
 	public class UniverseSorter {
 		// List<StarSystem> li = new List<StarSystem>();
-		SortedDictionary<double, List<StarSystem>> sortedDict;
+		public SortedDictionary<double, List<StarSystem>> sortedDict;
 
 		public UniverseSorter() {
 			sortedDict = new SortedDictionary<double, List<StarSystem>>();
 		}
 
-		void add(double comparer, StarSystem ss) {
+		public void add(double comparer, StarSystem ss) {
 			List<StarSystem> ssList;
-			if(!sortedDict.TryGetValue(comparer, out ssList)){
+			if(sortedDict.TryGetValue(comparer, out ssList)){
+				ssList.Add(ss);
+			} else {
 				ssList = new List<StarSystem>();
+				ssList.Add(ss);
+				sortedDict.Add(comparer, ssList);
 			}
-			ssList.Add(ss);
 		}
 
-		Dictionary<string, StarSystem> get() {
+		public Dictionary<string, StarSystem> get() {
 			Dictionary<string, StarSystem> outDict = new Dictionary<string, StarSystem>();
 			foreach (KeyValuePair<double, List<StarSystem>> entry in sortedDict)
 			{
