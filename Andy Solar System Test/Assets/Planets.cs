@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 
 public class Planets : MonoBehaviour {
@@ -289,7 +290,7 @@ public class Planets : MonoBehaviour {
 		}
 	}
 
-	void dealWithStarInSpace (Star star, GameObject thisStar){
+	Vector3 dealWithStarInSpace (Star star, GameObject thisStar){
 
 		GameObject newSun, upperSun;
 		Material sunMaterial;
@@ -300,15 +301,26 @@ public class Planets : MonoBehaviour {
 
 		const float PLANET_SIZE_IN_3D_STARS = 10F;
 
-		// string[] sol = new string[5] { "695500", "Our Sun", "sol", "G2V", "1.0" };
-		// float sunScale = (float)star.radius / 100000F;
 		float sunScale = PLANET_SIZE_IN_3D_STARS;
 		float centerSunSize = 0.25F;
 
-		// set the habitable zone based on the star's luminosity
-		float innerHab = (float)star.luminosity * 9.5F;
-		float outerHab = (float)star.luminosity * 14F;
+		// https://en.wikipedia.org/wiki/Ecliptic_coordinate_system
+		float r,b,l; // Ecliptic distance, latitude, longitude
+		float x,y,z; // Rectangular
 
+		r = (float)star.distanceFromUs;
+
+		// TODO: Just for testing.  Delete when working.
+		r = 1000F;
+
+		b = (float)star.eclipticLatitude;
+		l = (float)star.eclipticLongitude;
+
+		x = (float)(r * Math.Cos(b) * Math.Cos(l));
+		y = (float)(r * Math.Cos(b) * Math.Sin(l));
+		z = (float)(r * Math.Sin(b));
+
+		Vector3 location = new Vector3(x, y, z);
 
 		newSun = GameObject.CreatePrimitive (PrimitiveType.Sphere);
 		newSun.AddComponent<rotate> ();
@@ -354,6 +366,8 @@ public class Planets : MonoBehaviour {
 		sunTextMesh.fontSize = 200;
 
 		sunText.transform.parent = sunRelated.transform;
+
+		return location;
 	}
 
 	//------------------------------------------------------------------------------------//
@@ -395,10 +409,7 @@ public class Planets : MonoBehaviour {
 		Planets.transform.parent = SolarCenter.transform;
 
 		if (sceneType == SceneTypes.ThreeDStars) {
-			dealWithStarInSpace (star, SunStuff);
-			// need to do this last
-			SolarCenter.transform.position = offset;
-
+			SolarCenter.transform.position = dealWithStarInSpace (star, SunStuff);;
 		}
 		if (sceneType == SceneTypes.ThreeDSystems) {
 			dealWithStar (star, SunStuff, AllOrbits);
