@@ -1,6 +1,6 @@
 ﻿/// Sample Code for CS 491 Virtual And Augmented Reality Course - Fall 2017
 /// written by Andy Johnson
-/// 
+///
 /// makes use of various textures from the celestia motherlode - http://www.celestiamotherlode.net/
 
 using System.Collections;
@@ -10,12 +10,8 @@ using System.IO;
 
 
 public class Planets : MonoBehaviour {
-<<<<<<< HEAD
-	public int Type_; 
-=======
 	public enum SceneTypes { TwoD, ThreeDSystems, ThreeDStars };
 	public SceneTypes sceneType;
->>>>>>> master
 	float panelHeight = 0.1F;
 	float panelWidth = 30.0F;
 	float panelDepth = 0.1F;
@@ -35,8 +31,7 @@ public class Planets : MonoBehaviour {
 	float panelXScale = 2.0F;
 	float orbitXScale = 2.0F ;
 
-
-	//	private string JSONFile = "MPS5.json"; // 3 planets from 585 Multi Planet Systems
+//	private string JSONFile = "MPS5.json"; // 3 planets from 585 Multi Planet Systems
 	private string JSONFile = "MPS585.json"; // 585 Multi Planet Systems
 
 	public static Universe THE_UNIVERSE = new Universe();
@@ -44,7 +39,7 @@ public class Planets : MonoBehaviour {
 
 
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	/// <param name="orbitName"></param>
 	/// <param name="orbitRadius"></param>
@@ -251,7 +246,7 @@ public class Planets : MonoBehaviour {
 
 		sunRelated = thisStar;
 
-		newSun.GetComponent<rotate> ().rotateSpeed = -0.25F; 
+		newSun.GetComponent<rotate> ().rotateSpeed = -0.25F;
 
 		sunMaterial = new Material (Shader.Find ("Unlit/Texture"));
 		newSun.GetComponent<MeshRenderer> ().material = sunMaterial;
@@ -369,13 +364,8 @@ public class Planets : MonoBehaviour {
 		foreach (PlanetData planet in planets)
 		{
 			count++;
-<<<<<<< HEAD
-			//			Debug.Log(count.ToString() + " " + planet.pl_hostname);
-			//			Debug.Log(count.ToString() + " " + JsonUtility.ToJson(planet));
-=======
 //			Debug.Log(count.ToString() + " " + planet.pl_hostname);
 //			Debug.Log(count.ToString() + " " + JsonUtility.ToJson(planet));
->>>>>>> master
 			THE_UNIVERSE.addPlanetData(planet);
 		}
 

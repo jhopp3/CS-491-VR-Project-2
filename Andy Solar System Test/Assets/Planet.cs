@@ -4,8 +4,8 @@ using UnityEngine;
 using System;
 
 public class Planet {
-	//orbit radius (km), radius (km), orbit period (yr), texture, name
-	//	{ "82578024", "13211",   "0.46", "mercury", "e" }
+//orbit radius (km), radius (km), orbit period (yr), texture, name
+//	{ "82578024", "13211",   "0.46", "mercury", "e" }
 	public double radiusOfOrbit;
 	public float radiusOfPlanet; // Jupiter radii
 	public float mass; // Jupiter Mass
@@ -15,6 +15,8 @@ public class Planet {
 	public double timeToOrbit; // Days
 
 	public string texture;
+
+	public bool errorMassRadius;  // Does this have a non-zero mass or radius?
 
 	private const double AU_TO_KM = 149597870.7;
 	private const int JUPITER_RADIUS_TO_KM = 69911;
@@ -33,8 +35,9 @@ public class Planet {
 		discovered = pd.pl_discmethod;
 		star = s;
 		timeToOrbit = pd.pl_orbper / YEAR_TO_DAYS;
-		//		timeToOrbit = pd.pl_orbper;
+//		timeToOrbit = pd.pl_orbper;
 
+		errorMassRadius = setMassRadius();
 		setTexture ();
 	}
 
@@ -78,11 +81,24 @@ public class Planet {
 
 	private void setTexture() {
 		// Set the texture based on the radius/mass
-		texture = "";
+
+		if (mass <= 0) {
+			// Debug.LogError("Can't set the texture.");
+		} else {
+			if (mass < 0.05) {
+				texture = "uranus";
+			} else if (mass < 0.1) {
+				texture = "neptune";
+			} else if (mass < 0.65) {
+				texture = "saturn";
+			} else {
+				texture = "jupiter";
+			}
+		}
 	}
 
 	public override string ToString()
 	{
-		return String.Format("{0:e2} : {1} : {2} : {3} : {4} : {5} : {6}", radiusOfOrbit, radiusOfPlanet, mass, name, discovered, timeToOrbit, texture);
+		return String.Format("OrbRad {0:e2} : PlanRad {1} : Mass {2} : Name {3} : Disc {4} : Orbit {5} : Tex {6}", radiusOfOrbit, radiusOfPlanet, mass, name, discovered, timeToOrbit, texture);
 	}
 }

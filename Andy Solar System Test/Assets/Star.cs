@@ -9,8 +9,10 @@ public class Star {
 	public double distanceFromUs; // in parsecs
 	public string type; // Classification of the star based on their spectral characteristics following the Morgan-Keenan system.
 	public double radius;
-	//	public string spectralClassification; // Same as type?
+//	public string spectralClassification; // Same as type?
 	public int numberOfPlanets;
+	public string texture;
+	public char spectralType;
 
 	public const int EARTH_RADIUS = 695500;
 
@@ -21,8 +23,6 @@ public class Star {
 		type = pd.st_spstr;
 		radius = pd.st_rad * EARTH_RADIUS;
 		numberOfPlanets = pd.pl_pnum;
-<<<<<<< HEAD
-=======
 
 		setTexture();
 	}
@@ -97,11 +97,10 @@ public class Star {
 		} else {
 			// Debug.LogError("Spectral Type is null");
 		}
->>>>>>> master
 	}
 
 	public override string ToString()
 	{
-		return String.Format("{0} : {1} : {2} : {3} : {4} : {5}", luminosity, name, distanceFromUs, type, radius, numberOfPlanets);
+		return String.Format("Lum {0} : Name {1} : Dist {2} : Type {3} : Radius {4} : Planets {5}", luminosity, name, distanceFromUs, type, radius, numberOfPlanets);
 	}
 }

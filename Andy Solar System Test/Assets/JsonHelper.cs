@@ -25,9 +25,9 @@ public static class JsonHelper
 		return JsonUtility.ToJson(wrapper, prettyPrint);
 	}
 
-	[Serializable]
-	private class Wrapper<T>
-	{
-		public T[] Items;
-	}
+    [Serializable]
+    private class Wrapper<T>
+    {
+        public T[] Items;
+    }
 }
