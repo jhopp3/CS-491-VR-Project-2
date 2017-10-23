@@ -11,7 +11,7 @@ public class SaveState  {
     private string filePath = Path.Combine(Application.streamingAssetsPath, FILENAME);
     public Planets.SceneTypes scene;
 
-    public int var = 2;
+    public int var = 3;
 
     public void loadData() {
 		if(File.Exists(filePath))
