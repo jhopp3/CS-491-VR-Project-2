@@ -440,6 +440,7 @@ public class Planets : MonoBehaviour {
 
 		SaveState s = new SaveState();
 		s.saveData();
+		s.loadData();
 
 		//radius (km), name, type, spectral classification, luminosity
 

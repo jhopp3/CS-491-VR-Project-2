@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 [System.Serializable]
 public class SaveState  {
@@ -17,7 +18,13 @@ public class SaveState  {
 		{
 			string dataAsJson = File.ReadAllText(filePath);
 
-			SaveState[] planets = JsonHelper.FromJson<SaveState>(dataAsJson);
+            //gameData = JsonUtility.FromJson<GameData> (dataAsJson);
+			// SaveState[] state = JsonHelper.FromJson<SaveState>(dataAsJson);
+			SaveState state = JsonUtility.FromJson<SaveState>(dataAsJson);
+
+			Debug.Log("JSON: " +  dataAsJson);
+
+			Debug.Log("State: " + state.ToString());
 
 			Debug.Log("Save File loaded.");
 		}
@@ -33,4 +40,9 @@ public class SaveState  {
         File.WriteAllText (filePath, dataAsJson);
         Debug.Log("Saved: " + filePath + " : " + dataAsJson);
     }
+
+    public override string ToString()
+	{
+		return String.Format("Scene {0} : Var {1}", scene, var);
+	}
 }
