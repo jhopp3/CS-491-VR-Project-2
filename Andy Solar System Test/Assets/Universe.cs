@@ -35,11 +35,9 @@ public class Universe {
 	// stars most like the sun
 	public void nearestEarth() {
 		UniverseSorter uSorter = new UniverseSorter();
-		// int count = 0;
 		foreach(KeyValuePair<string, StarSystem> entry in AllStarSystems)
 		{
 			StarSystem ss = entry.Value;
-			// count++;
 			double distanceToStar;
 			if (ss.star.distanceFromUs <= 0) {
 				distanceToStar = double.MaxValue;
@@ -48,14 +46,19 @@ public class Universe {
 			}
 			uSorter.add(distanceToStar, ss);
 		}
-		// Debug.Log("Nearest * " + count.ToString());
 		StarSystems = uSorter.get();
-		// Debug.Log("SortedDict: " + uSorter.sortedDict.Count + " StarSystems.");
-		// Debug.Log("Sorted with: " + StarSystems.Count + " StarSystems.");
 	}
 
 	public void mostPlanets() {
-
+		UniverseSorter uSorter = new UniverseSorter();
+		foreach(KeyValuePair<string, StarSystem> entry in AllStarSystems)
+		{
+			StarSystem ss = entry.Value;
+			double planetsInSystem;
+			planetsInSystem = int.MaxValue - ss.star.numberOfPlanets;
+			uSorter.add(planetsInSystem, ss);
+		}
+		StarSystems = uSorter.get();
 	}
 
 	public void mostLikelyHabitable() {
