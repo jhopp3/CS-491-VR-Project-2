@@ -31,12 +31,13 @@ public class Universe {
                                                entry => entry.Value);
 	}
 
-	// nearest to the Earth, most planets, most planets likely to be habitable, 
+	// nearest to the Earth, most planets, most planets likely to be habitable,
 	// stars most like the sun
 	public void nearestEarth() {
+		UniverseSorter msu = new UniverseSorter();
 		foreach(KeyValuePair<string, StarSystem> starSystem in AllStarSystems)
 		{
-			// do something with entry.Value or entry.Key
+			// UniverseSorter(starSystem.star.distanceFromUs, starSystem);
 		}
 	}
 
@@ -50,5 +51,34 @@ public class Universe {
 
 	public void mostLikeSun() {
 
+	}
+
+	public class UniverseSorter {
+		// List<StarSystem> li = new List<StarSystem>();
+		SortedDictionary<double, List<StarSystem>> sortedDict;
+
+		public UniverseSorter() {
+			sortedDict = new SortedDictionary<double, List<StarSystem>>();
+		}
+
+		void add(double comparer, StarSystem ss) {
+			List<StarSystem> ssList;
+			if(!sortedDict.TryGetValue(comparer, out ssList)){
+				ssList = new List<StarSystem>();
+			}
+			ssList.Add(ss);
+		}
+
+		Dictionary<string, StarSystem> get() {
+			Dictionary<string, StarSystem> outDict = new Dictionary<string, StarSystem>();
+			foreach (KeyValuePair<double, List<StarSystem>> entry in sortedDict)
+			{
+				List<StarSystem> ssList = entry.Value;
+				foreach (StarSystem ss in ssList) {
+					outDict.Add(ss.star.name, ss);
+				}
+			}
+			return outDict;
+		}
 	}
 }

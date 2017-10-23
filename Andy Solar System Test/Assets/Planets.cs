@@ -457,7 +457,7 @@ public class Planets : MonoBehaviour {
 
 
 		// string[] TauCeti = new string[5] { "556400", "Tau Ceti", "gstar", "G8.5V", "0.52" };
-
+		//orbit radius (km), radius (km), orbit period (yr), texture, name
 		// string[,] TauCetiPlanets = new string[5, 5] {
 		// 	{ "15707776",  "9009",   "0.04", "venus",   "b" },
 		// 	{ "29171585", "11217",   "0.09", "venus", "c" },
