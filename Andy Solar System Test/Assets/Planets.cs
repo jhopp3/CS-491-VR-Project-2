@@ -437,6 +437,10 @@ public class Planets : MonoBehaviour {
 		timePassingChange = 1.0F;//To change time passing
 		revolutionSpeed = 0.2F ;
 		LoadPlanetData();
+
+		SaveState s = new SaveState();
+		s.saveData();
+
 		//radius (km), name, type, spectral classification, luminosity
 
 		string[] sol = new string[5] { "695500", "Our Sun", "sol", "G2V", "1.0" };
