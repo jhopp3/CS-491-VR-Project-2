@@ -15,7 +15,11 @@ public class ResetScript : MonoBehaviour {
 	}
     public void reseter()
     {
+<<<<<<< Updated upstream
              Scene scene = SceneManager.GetActiveScene();
 			 SceneManager.LoadScene(scene.name);
+=======
+
+>>>>>>> Stashed changes
     }
 }

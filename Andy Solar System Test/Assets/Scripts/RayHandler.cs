@@ -25,7 +25,10 @@ public class RayHandler : MonoBehaviour {
             if (hit.transform.tag == "UIElement")
             {
                 hit.transform.GetComponent<Button>().Select();
-                hit.transform.GetComponent<Button>().onClick.Invoke();
+                if (Input.GetAxis("Submit") > 0.4f)
+                {
+                    hit.transform.GetComponent<Button>().onClick.Invoke();
+                }
             }
             else if (hit.transform.tag == "Alien")
             {
@@ -40,6 +43,7 @@ public class RayHandler : MonoBehaviour {
                 if (Input.GetAxis("Submit") > 0.4f)
                 {
 
+<<<<<<< Updated upstream
 
                     string name = hit.transform.GetComponent<MeshRenderer>().material.ToString();
                     string[] arr = name.Split(' ');
@@ -51,6 +55,19 @@ public class RayHandler : MonoBehaviour {
                         hit.transform.GetComponent<MeshRenderer>().material = planetMaterial;
                         hit.transform.GetComponent<ObjectSelection>().isSelected = false;
 
+=======
+
+                    string name = hit.transform.GetComponent<MeshRenderer>().material.ToString();
+                    string[] arr = name.Split(' ');
+                    if (hit.transform.GetComponent<ObjectSelection>().isSelected)
+                    {
+                        string edited = arr[0].Substring(0, arr[0].Length - 6);
+                        Debug.Log(edited);
+                        Material planetMaterial = Resources.Load(edited, typeof(Material)) as Material;
+                        hit.transform.GetComponent<MeshRenderer>().material = planetMaterial;
+                        hit.transform.GetComponent<ObjectSelection>().isSelected = false;
+
+>>>>>>> Stashed changes
                     }
                     else
                     {
@@ -65,7 +82,11 @@ public class RayHandler : MonoBehaviour {
                         }
                         else
                         {
+<<<<<<< Updated upstream
                             SceneChangerGoto.ChangeScenetoLoc(selectedSys);
+=======
+                          //  SceneChangerGoto.ChangeScenetoLoc(selectedSys);
+>>>>>>> Stashed changes
                         }
                         Debug.Log("Click Planet");
                     }

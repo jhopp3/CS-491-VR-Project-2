@@ -20,8 +20,8 @@ public class Planets : MonoBehaviour {
 	[SerializeField] public float orbitSizeChange ;
 	[SerializeField] public float rotationSpeedChange = 1.0F;
 	[SerializeField] public float timePassingChange ;
-
-	[SerializeField] private List<GameObject> allPlanetsCenters = new List<GameObject>() ;
+    GameObject allCenter;
+    [SerializeField] private List<GameObject> allPlanetsCenters = new List<GameObject>() ;
 
 	float orbitWidth = 0.01F;
 	float habWidth = 0.03F;
@@ -437,6 +437,7 @@ public class Planets : MonoBehaviour {
 
             }
         }
+<<<<<<< Updated upstream
             if (sceneType == SceneTypes.ThreeDSystems)
             {
                 foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems)
@@ -452,10 +453,17 @@ public class Planets : MonoBehaviour {
 
                 }
             }
+=======
+        if (sceneType == SceneTypes.ThreeDSystems)
+        {
+            LoadPage();
+        }
+>>>>>>> Stashed changes
          
         // add in second 'flat' representation
         if (sceneType == SceneTypes.TwoD)
         {
+<<<<<<< Updated upstream
                       foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems)
                        {
                                
@@ -465,15 +473,47 @@ public class Planets : MonoBehaviour {
                                 systemOffset += oneOffset;
 
                             }
+=======
+            LoadPage();
+>>>>>>> Stashed changes
 
         }
         
 
 	}
+    //------------------------------------------------------------------------------------//
 
-	//------------------------------------------------------------------------------------//
+    //------------------------------------------------------------------------------------//
 
-	void Start () {
+    //------------------------------------------------------------------------------------//
+
+    public void LoadPage()
+    {
+        
+        
+        var systemOffset = new Vector3(0, 0, 0);
+        var oneOffset = new Vector3(0, -30, 0);
+
+        systemOffset += oneOffset;
+        int i = 0;
+        foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems)
+        {
+            if (i > 10)
+            {
+                break;
+            }
+            StarSystem ss = entry.Value;
+
+            dealWithSystem(ss.star, ss.planets, systemOffset, allCenter);
+            systemOffset += oneOffset;
+            ++i;
+        }
+
+        //return false;
+    }
+    //------------------------------------------------------------------------------------//
+
+    void Start () {
 		planetSizeChange = 1.0F;//To change planet size
 		orbitSizeChange = 1.0F;//To change orbit size
 		rotationSpeedChange = 1.0F;//To change rotation speed (revolution speed variable)
@@ -516,7 +556,7 @@ public class Planets : MonoBehaviour {
 		// 	{"10920645", "20147",   "0.18", "neptune",  "c" }
 		// };
 
-		GameObject allCenter = new GameObject
+		allCenter = new GameObject
 		{
 			name = "all systems"
 		};
