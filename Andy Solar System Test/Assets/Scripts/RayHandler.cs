@@ -43,7 +43,6 @@ public class RayHandler : MonoBehaviour {
                 if (Input.GetAxis("Submit") > 0.4f)
                 {
 
-<<<<<<< Updated upstream
 
                     string name = hit.transform.GetComponent<MeshRenderer>().material.ToString();
                     string[] arr = name.Split(' ');
@@ -55,19 +54,6 @@ public class RayHandler : MonoBehaviour {
                         hit.transform.GetComponent<MeshRenderer>().material = planetMaterial;
                         hit.transform.GetComponent<ObjectSelection>().isSelected = false;
 
-=======
-
-                    string name = hit.transform.GetComponent<MeshRenderer>().material.ToString();
-                    string[] arr = name.Split(' ');
-                    if (hit.transform.GetComponent<ObjectSelection>().isSelected)
-                    {
-                        string edited = arr[0].Substring(0, arr[0].Length - 6);
-                        Debug.Log(edited);
-                        Material planetMaterial = Resources.Load(edited, typeof(Material)) as Material;
-                        hit.transform.GetComponent<MeshRenderer>().material = planetMaterial;
-                        hit.transform.GetComponent<ObjectSelection>().isSelected = false;
-
->>>>>>> Stashed changes
                     }
                     else
                     {
@@ -82,11 +68,7 @@ public class RayHandler : MonoBehaviour {
                         }
                         else
                         {
-<<<<<<< Updated upstream
-                            SceneChangerGoto.ChangeScenetoLoc(selectedSys);
-=======
                           //  SceneChangerGoto.ChangeScenetoLoc(selectedSys);
->>>>>>> Stashed changes
                         }
                         Debug.Log("Click Planet");
                     }

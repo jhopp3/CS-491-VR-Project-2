@@ -437,45 +437,15 @@ public class Planets : MonoBehaviour {
 
             }
         }
-<<<<<<< Updated upstream
-            if (sceneType == SceneTypes.ThreeDSystems)
-            {
-                foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems)
-                {
-                    // do something with entry.Value or entry.Key
-                    StarSystem ss = entry.Value;
-                    // count++;
-                    // if (count%50 == 0) {
-                    // 	Debug.Log(count.ToString() + " " + ss.ToString());
-                    // }
-                    dealWithSystem(ss.star, ss.planets, systemOffset, allCenter);
-                    systemOffset += oneOffset;
-
-                }
-            }
-=======
         if (sceneType == SceneTypes.ThreeDSystems)
         {
             LoadPage();
         }
->>>>>>> Stashed changes
          
         // add in second 'flat' representation
         if (sceneType == SceneTypes.TwoD)
         {
-<<<<<<< Updated upstream
-                      foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems)
-                       {
-                               
-                                StarSystem ss = entry.Value;
-                               
-                                dealWithSystem(ss.star, ss.planets, systemOffset, allCenter);
-                                systemOffset += oneOffset;
-
-                            }
-=======
             LoadPage();
->>>>>>> Stashed changes
 
         }
         
