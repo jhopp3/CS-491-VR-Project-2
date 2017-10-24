@@ -119,7 +119,7 @@ public class Planets : MonoBehaviour {
 
 			planetMaterial = Resources.Load(textureName, typeof(Material)) as Material;
 			newPlanet.GetComponent<MeshRenderer> ().material = planetMaterial;
-			
+
 			drawOrbit (planetName + " orbit", planetDistance * orbitXScale, Color.white, orbitWidth, theseOrbits);
 
 			sunRelated = thesePlanets;
@@ -182,7 +182,7 @@ public class Planets : MonoBehaviour {
 		newSidePanel.transform.position = new Vector3 (0, 0, 0);
 		newSidePanel.transform.localScale = new Vector3 (panelWidth, panelHeight, panelDepth);
 		newSidePanel.transform.parent = thisSide.transform;
-		
+
 		newSideSun = GameObject.CreatePrimitive (PrimitiveType.Cube);
 		newSideSun.name = "Side " + star.name + " Star";
 		newSideSun.tag = "Star";
@@ -389,7 +389,7 @@ public class Planets : MonoBehaviour {
 			Planet p = new Planet(planetArray, s);
 			planetList.Add(p);
 		}
-      
+
             dealWithSystem(s, planetList, offset, allThings);
 
 
@@ -514,7 +514,7 @@ public class Planets : MonoBehaviour {
         // int count = 0;
         if (sceneType == SceneTypes.ThreeDStars)
         {
-            foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems)
+            foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.getStarSystems())
             {
                 // do something with entry.Value or entry.Key
                 StarSystem ss = entry.Value;
@@ -531,14 +531,14 @@ public class Planets : MonoBehaviour {
         {
             LoadPage();
         }
-         
+
         // add in second 'flat' representation
         if (sceneType == SceneTypes.TwoD)
         {
             LoadPage();
 
         }
-       
+
 	}
     //------------------------------------------------------------------------------------//
 
@@ -548,14 +548,14 @@ public class Planets : MonoBehaviour {
 
     public void LoadPage()
     {
-        
-        
+
+
         var systemOffset = new Vector3(0, 0, 0);
         var oneOffset = new Vector3(0, -30, 0);
 
         systemOffset += oneOffset;
         int i = 0;
-        foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.StarSystems)
+        foreach (KeyValuePair<string, StarSystem> entry in THE_UNIVERSE.getStarSystems())
         {
             if (i > 10)
             {
