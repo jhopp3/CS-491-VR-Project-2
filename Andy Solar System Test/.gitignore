@@ -36,5 +36,8 @@ sysinfo.txt
 *.log
 *.info
 *.bin
+*.exe
+*.zip
+*_Data/
 
 .vscode/*
