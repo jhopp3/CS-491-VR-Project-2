@@ -20,16 +20,6 @@ public class StarSystem {
 		return star.ToString();
 	}
 
-<<<<<<< Updated upstream
-	public string printFirstPlanet()
-	{
-		if (planets.Count > 0) {
-			return planets [0].ToString ();
-		}
-
-		return "";
-	}
-=======
 	
 	public void printAllPlanets()
 	{
@@ -37,5 +27,4 @@ public class StarSystem {
 			Debug.Log(p.ToString());
 		}
 	}*/
->>>>>>> Stashed changes
 }

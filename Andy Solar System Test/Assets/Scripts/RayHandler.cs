@@ -27,17 +27,7 @@ public class RayHandler : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "EnterScene")
         {
-<<<<<<< Updated upstream
-            if (hit.transform.tag == "UIElement")
-            {
-                Debug.Log("Handler");
-                //hit.transform.GetComponent<Button>().Select();
-                hit.transform.GetComponent<Button>().onClick.Invoke();
-            }
-            else if (hit.transform.tag == "Alien")
-=======
             if (Physics.Raycast(transform.position, transform.forward, out hit, 250))
->>>>>>> Stashed changes
             {
                 if (hit.transform.tag == "Alien")
                 {
@@ -56,8 +46,6 @@ public class RayHandler : MonoBehaviour
                     }
                 }
             }
-<<<<<<< Updated upstream
-=======
         }
 
         else
@@ -138,7 +126,6 @@ public class RayHandler : MonoBehaviour
             {
                 isTriggered = false;
             }
->>>>>>> Stashed changes
         }
     }
 }

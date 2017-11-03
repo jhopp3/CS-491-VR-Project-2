@@ -3,26 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-<<<<<<< Updated upstream
-public class Planet {
-//orbit radius (km), radius (km), orbit period (yr), texture, name
-//	{ "82578024", "13211",   "0.46", "mercury", "e" }
-	public double radiusOfOrbit;
-	public double radiusOfPlanet; // Jupiter radii
-	public double mass; // Jupiter Mass
-	public string name;
-	public string discovered;
-	public Star star;
-	public double timeToOrbit; // Days
-
-	public string texture;
-
-	public bool errorMassRadius;  // Does this have a non-zero mass or radius?
-
-	private const double AU_TO_KM = 149597870.7;
-	private const double JUPITER_RADIUS_TO_KM = 69911;
-	private const double YEAR_TO_DAYS = 365.2422;
-=======
 public class Planet : MonoBehaviour{
     //orbit radius (km), radius (km), orbit period (yr), texture, name
     //	{ "82578024", "13211",   "0.46", "mercury", "e" }
@@ -50,7 +30,6 @@ public class Planet : MonoBehaviour{
 	private const float YEAR_TO_DAYS = 365.2422f;
 	private const float EARTH_MASS = 0.00315f; // Jupiter Mass Units
 	private const int EARTH_RADIUS = 6371;
->>>>>>> Stashed changes
 
     //Functions
     /// <summary>
@@ -60,26 +39,17 @@ public class Planet : MonoBehaviour{
     /// <param name="s"></param>
     public Planet (PlanetData pd) {
 		// pd.pl_orbsmax is in AU, convert to KM
-<<<<<<< Updated upstream
-		radiusOfOrbit = pd.pl_orbsmax * AU_TO_KM;
-		// radiusOfOrbit = pd.pl_orbsmax;
-		radiusOfPlanet = pd.pl_radj * JUPITER_RADIUS_TO_KM;
-		mass = pd.pl_bmassj;
-=======
 		radiusOfOrbit = (float)pd.pl_orbsmax * AU_TO_KM;
         print("radiusOfOrbit : " + radiusOfOrbit);
 
         radiusOfPlanet = pd.pl_radj * JUPITER_RADIUS_TO_KM;
 		mass = (float)pd.pl_bmassj;
->>>>>>> Stashed changes
 		name = pd.pl_name;
 		discovered = pd.pl_discmethod;
 		timeToOrbit = (float)pd.pl_orbper / YEAR_TO_DAYS;
 		errorMassRadius = setMassRadius();
 		setTexture ();
 
-<<<<<<< Updated upstream
-=======
 
     }
 
@@ -94,7 +64,6 @@ public class Planet : MonoBehaviour{
         
     }
 
->>>>>>> Stashed changes
 	private bool setMassRadius() {
 		// If either the Mass or Radius is null from the import, guess it's value based on the other.
 
@@ -105,11 +74,18 @@ public class Planet : MonoBehaviour{
 			if (mass <= 0) {
 				// Set mass based on radius
 				// Use formula JupiterMass = 0.00672 * EXP(0.0000706*(Radius))
-				mass = 0.00672 * Math.Exp(0.0000706 * (radiusOfPlanet));
+				mass = (float)0.00672 * (float)Math.Exp(0.0000706 * (radiusOfPlanet));
 			} else if (radiusOfPlanet <= 0) {
 				// Set radius based on mass
-				// Use formula Radius = 72483+(15496 * ln (JupiterMass))
-				radiusOfPlanet = 72483+(15496 * Math.Log(mass));
+				// http://phl.upr.edu/library/notes/standardmass-radiusrelationforexoplanets
+				
+				if (mass < EARTH_MASS) {
+					radiusOfPlanet = (float)Math.Pow(mass/EARTH_MASS, 0.3) * EARTH_RADIUS;
+				} else if (mass < EARTH_MASS * 200) {
+					radiusOfPlanet = (float)Math.Pow(mass/EARTH_MASS, 0.5) * EARTH_RADIUS;
+				} else {
+					radiusOfPlanet = (float)Math.Pow(mass/EARTH_MASS, -0.0886) * (float)22.6 * EARTH_RADIUS;
+				}
 			}
 		}
 		return false;

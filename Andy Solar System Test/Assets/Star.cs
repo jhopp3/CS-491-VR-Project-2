@@ -37,18 +37,8 @@ public class Star : MonoBehaviour{
     public float innerHab;
     public float outerHab ;
 
-<<<<<<< Updated upstream
-	public Star (PlanetData pd) {
-		luminosity = pd.st_lum;
-		name = pd.pl_hostname;
-		distanceFromUs = pd.st_dist;
-		type = pd.st_spstr;
-		radius = pd.st_rad;
-		numberOfPlanets = pd.pl_pnum;
-=======
 
     public const int EARTH_RADIUS = 695500;
->>>>>>> Stashed changes
 
     public Star(PlanetData pd) {
         luminosity = (float)Math.Exp(pd.st_lum);
@@ -67,8 +57,6 @@ public class Star : MonoBehaviour{
         setTexture();
     }
 
-<<<<<<< Updated upstream
-=======
 	public Star (string[] sunArray) {
 		//radius (km), name, type, spectral classification, luminosity
 		//new string[5] { "695500", "Our Sun", "sol", "G2V", "1.0" };
@@ -85,7 +73,6 @@ public class Star : MonoBehaviour{
 		Debug.Log(this.ToString());
 	}
 
->>>>>>> Stashed changes
 	private void setTexture() {
 		if (!string.IsNullOrEmpty(type)) {
 			// Debug.LogError("Type is " + type);
