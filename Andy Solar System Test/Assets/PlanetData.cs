@@ -14,9 +14,9 @@ public class PlanetData  {
 	// public string pl_radj; //Radius of planet
 
 
-	public int rowid;
-    public string pl_hostname;
-    public string pl_letter;
+	public int rowid; // index of planet
+    public string pl_hostname; // name of sun 
+    public string pl_letter; // name of planet
     public string pl_discmethod;
     public int pl_pnum;
     public double pl_orbper;

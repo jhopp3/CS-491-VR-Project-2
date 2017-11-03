@@ -4,6 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// To draw an orbit circle using lineRenderer
+/// </summary>
 public class Circle : MonoBehaviour
 {
 	public int segments = 48;
@@ -13,17 +17,20 @@ public class Circle : MonoBehaviour
 
 	void Start ()
 	{
-		line = gameObject.GetComponent<LineRenderer>();
+        line = gameObject.GetComponent<LineRenderer>();//TODO:
 
-		line.SetVertexCount (segments + 1);
-		line.useWorldSpace = false;
-		CreatePoints ();
-	}
+        line.positionCount = (segments + 1);
+        line.useWorldSpace = false;
+        line.startWidth = (1);
+        line.endWidth = (1);
+        CreatePoints();
+    }
 
 
-	void CreatePoints ()
+	public void CreatePoints ()
 	{
-		float x;
+        
+        float x;
 		float z;
 		float y = 0f;
 

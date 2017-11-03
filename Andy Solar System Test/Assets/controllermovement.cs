@@ -47,7 +47,7 @@ public class controllermovement : MonoBehaviour
 				player.transform.Rotate (0, touchpad.x * sensitivityX, 0);
 			}
 
-			Debug.Log ("Touchpad X = " + touchpad.x + " : Touchpad Y = " + touchpad.y);
+			//Debug.Log ("Touchpad X = " + touchpad.x + " : Touchpad Y = " + touchpad.y);
 		}
 	}
 }

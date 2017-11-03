@@ -16,7 +16,13 @@ public class SceneChanger : MonoBehaviour {
 	}
 	public void ChangeScene(string level_)
 	{
+<<<<<<< Updated upstream
 		Application.LoadLevel (level_);
+=======
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(level_);
+		//Application.LoadLevel (level_);
+>>>>>>> Stashed changes
 		//return true;
 	}
 }

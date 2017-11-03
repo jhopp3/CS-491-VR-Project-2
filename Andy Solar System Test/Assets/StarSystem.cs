@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StarSystem {
-	public Star star;
+	/*public Star star;
 	public List<Planet> planets = new List<Planet>();
 
 	public StarSystem(PlanetData pd) {
@@ -11,12 +11,8 @@ public class StarSystem {
 	}
 
 	public void addPlanetData (PlanetData pd) {
-		Planet newPlanet = new Planet (pd, star);
-		if (!newPlanet.errorMassRadius) {
-			planets.Add (newPlanet);
-		} else {
-			// Debug.Log("Not adding planet!");
-		}
+		Planet newPlanet = new Planet (pd);
+		 
 	}
 
 	public override string ToString()
@@ -24,6 +20,7 @@ public class StarSystem {
 		return star.ToString();
 	}
 
+<<<<<<< Updated upstream
 	public string printFirstPlanet()
 	{
 		if (planets.Count > 0) {
@@ -32,4 +29,13 @@ public class StarSystem {
 
 		return "";
 	}
+=======
+	
+	public void printAllPlanets()
+	{
+		foreach (Planet p in planets) {
+			Debug.Log(p.ToString());
+		}
+	}*/
+>>>>>>> Stashed changes
 }
