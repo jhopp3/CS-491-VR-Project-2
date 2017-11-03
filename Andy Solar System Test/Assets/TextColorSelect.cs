@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TextColorSelect : MonoBehaviour {
 	public int x;
@@ -19,7 +18,7 @@ public class TextColorSelect : MonoBehaviour {
 	}
 	void OnMouseUp()
 	{
-        SceneManager.LoadScene(x);
+		Application.LoadLevel(x);
 	}
 	
 	// Update is called once per frame
