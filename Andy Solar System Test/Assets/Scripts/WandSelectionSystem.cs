@@ -20,10 +20,6 @@ public class WandSelectionSystem : MonoBehaviour {
         lr.SetPositions(poss);
         if (Input.GetAxis("Submit")>0.4f)
         {
-            Debug.Log("Click");
-            btn.onClick.Invoke();
-            Debug.Log("Clicked");
-
         }
  	}
 }

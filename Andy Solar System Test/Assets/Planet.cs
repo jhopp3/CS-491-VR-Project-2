@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Planet {
+public class Planet :MonoBehaviour {
 //orbit radius (km), radius (km), orbit period (yr), texture, name
 //	{ "82578024", "13211",   "0.46", "mercury", "e" }
 	public double radiusOfOrbit;
